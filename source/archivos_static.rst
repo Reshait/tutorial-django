@@ -3,9 +3,9 @@
 Archivos static
 ===============
 
-Ahora es el momento de ver como incluir los archivos estáticos (css, js, imagenes) al proyecto.
+Ahora es el momento de ver como incluir los archivos estáticos (**css, js, imagenes**) al proyecto.
 
-Si abres el archivo de configuración ``tutorial_django/settings.py`` y bajas al final del archivo, vemos una variable de configuración ``STATIC_URL = '/static/'``, de esta manera le esta diciendo que, cuando en las plantillas llamemos a un archivo estático, anteponga en la URI ``/static/`` (ahora veremos como funciona), a parte tenemos que decirle a Django donde estarán esos archivos estáticos, así que, debajo de ``STATIC_URL`` ponemos lo siguiente:
+Si abres el archivo de configuración ``tutorial_django/settings.py`` y bajas al final del archivo, vemos una variable de configuración ``STATIC_URL = '/static/'``, de esta manera le esta diciendo que, cuando en las plantillas llamamos a un archivo estático, anteponga en la **URI** ``/static/`` (ahora veremos como funciona), a parte tenemos que decirle a Django donde estarán esos archivos estáticos, así que, debajo de ``STATIC_URL`` ponemos lo siguiente:
 
 .. code-block:: python
 
@@ -24,7 +24,7 @@ Ahora, ya sabrá Django que los archivos estarán en la ``src/static`` (con una 
 
     mkdir -p static/{js,css,img}
 
-dentro de ``css`` creamos un archivo ``main.css`` y dentro de ``js`` un archivo js ``main.js``. Ya para 'terminar', los incluimos en ``templates/base.html``
+dentro de **css** creamos un archivo ``main.css`` y dentro de **js** un archivo ``main.js``. Ya para 'terminar', los incluimos en ``templates/base.html``
 
 .. code-block:: html
 
@@ -46,7 +46,7 @@ dentro de ``css`` creamos un archivo ``main.css`` y dentro de ``js`` un archivo 
     </body>
     </html>
 
-Hemos incluido una tag o etiqueta ``{% load staticfiles %}`` (si no, dará error al cargar la pagina), cuando llama un archivo estático como ``{% static 'js/main.js' %}``, Django cambiara ``{% static 'js/main.js' %}`` por el valor de ``settings.STATIC_URL + js/main.js`` que en este caso sera ``<script src="/static/js/main.js"></script>``
+Hemos incluido una **tag** o etiqueta ``{% load staticfiles %}`` (si no, dará error al cargar la pagina), cuando llama un archivo estático como ``{% static 'js/main.js' %}``, Django cambiara ``{% static 'js/main.js' %}`` por el valor de ``settings.STATIC_URL + js/main.js`` que en este caso sera ``<script src="/static/js/main.js"></script>``
 
 Dentro de ``static/css/main.css`` añadimos:
 
@@ -56,9 +56,9 @@ Dentro de ``static/css/main.css`` añadimos:
 
     body { background-color: blue; }
 
-Ahora, reiniciamos el servidor (por si acaso) y vamos a `http://127.0.0.1:8000/ <http://127.0.0.1:8000/>`_ y vemos que el fondo es azul, lo importante es ver el código html generado, si nos fijamos ha puesto la ruta ``<link rel="stylesheet" href="/static/css/main.css">``, eso significa que podríamos cambiar el directorio a otro ruta y cambiando en settings la ruta, sin modificar nada mas, seguiremos teniendo a nuestra disposición los archivos estáticos.
+Ahora, reiniciamos el servidor (por si acaso) y vamos a `http://127.0.0.1:8000/ <http://127.0.0.1:8000/>`_ y vemos que el fondo es azul, lo importante es ver el código **html** generado, si nos fijamos ha puesto la ruta ``<link rel="stylesheet" href="/static/css/main.css">``, eso significa que podríamos cambiar el directorio a otro ruta y cambiando en **settings** la ruta, sin modificar nada mas, seguiremos teniendo a nuestra disposición los archivos estáticos.
 
-Para el resto del tutorial, vamos a poner `Bootstrap <http://getbootstrap.com/>`_ y `JQuery <https://jquery.com/>`_, descargamos ambas librerías y las descomprimimos dentro del directorio ``static``, quedando de esta manera la estructura:
+Para el resto del tutorial, vamos a poner `Bootstrap <http://getbootstrap.com/>`_ y `JQuery <https://jquery.com/>`_, descargamos ambas librerías y las descomprimimos dentro del directorio **static** (**jquery** no lo usaremos), quedando de esta manera la estructura.
 
 .. code-block:: bash
 
@@ -91,7 +91,7 @@ Para el resto del tutorial, vamos a poner `Bootstrap <http://getbootstrap.com/>`
 
     8 directories, 18 files
 
-E incluimos en nuestro ``templates/base.html``, ademas añadimos el típico navbar superior de Bootstrap, quedando de la siguiente manera nuestro archivo ``base.html``
+E incluimos en nuestro ``templates/base.html``. Ademas añadimos el típico **navbar** superior de **Bootstrap**, quedando de la siguiente manera nuestro archivo ``base.html``
 
 .. code-block:: html
 
@@ -145,7 +145,7 @@ E incluimos en nuestro ``templates/base.html``, ademas añadimos el típico navb
     </body>
     </html>
 
-El archivo css también le vamos a quitar ese color azul tan molón :P
+El archivo **css** también le vamos a quitar ese color azul tan molón :P y ponerle el margen de la barra.
 
 .. code-block:: css
 
@@ -155,4 +155,4 @@ El archivo css también le vamos a quitar ese color azul tan molón :P
         margin: 70px 0 20px 0;
     }
 
-Si actualizamos la pagina, ahora se ve que ya la cosa cambia :) y es hora de empezar a profundizar mas en todos los componentes que hasta ahora hemos tocado, a parte de que queda mucho por ver como los modelos.
+Si actualizamos la pagina, ahora se ve que la cosa cambia :) y es hora de empezar a profundizar mas en todos los componentes que hasta ahora hemos tocado, a parte de que queda mucho por ver como los modelos.

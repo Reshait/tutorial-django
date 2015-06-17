@@ -9,6 +9,10 @@ Antes de instalar Django, se ha de tener Python en el sistema, para no repetirme
 * `Instalación Python en Fedora <http://snicoper.readthedocs.org/es/latest/linux/python/instalacion_python_fedora.html>`_
 * `Instalación Python en Ubuntu <http://snicoper.readthedocs.org/es/latest/linux/python/instalar_python_ubuntu.html>`_
 
+.. note::
+
+    Uso Python 3 para el tutorial.
+
 Crear un entorno virtual
 ************************
 
@@ -20,7 +24,7 @@ Para crear un entorno virtual, abrimos la terminal y escribimos:
 
     mkvirtualenv tutorial_django
 
-Ahora en la terminal, podemos ver que pone ``(terminal_django)``, eso nos indica que entorno estamos usando.
+Ahora en la terminal, podemos ver que pone ``(terminal_django)``, eso nos indica que entorno estamos usando y el que siempre usaremos en todo el tutorial.
 
 Para salir del entorno virtual, simplemente con ``deactivate`` en la terminal, saldremos y para entrar o cambiar en entorno, usamos ``workon nombre_entorno``.
 

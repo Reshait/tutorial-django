@@ -20,3 +20,5 @@ En esta parte del tutorial, se usaran ``CBV`` y ``ModelForm`` para mostrar otros
     creacion_articulo
     editar_articulo
     eliminar_articulo
+
+.. administracion

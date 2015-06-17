@@ -3,7 +3,7 @@
 Login usuario
 =============
 
-Django ya incorpora funciones para hacer 'login' (e incluso vistas y formularios, pero los vamos a omitir en este tutorial).
+Django ya incorpora funciones para hacer **login** (e incluso vistas y formularios, pero los vamos a omitir en este tutorial).
 
 En primer lugar creamos la vista
 
@@ -42,21 +42,21 @@ En primer lugar creamos la vista
         mensaje = 'Nombre de usuario o contraseña no valido'
     return render(request, 'accounts/login.html', {'mensaje': mensaje})
 
-La vista, lo primero que comprueba es si esta autenticado, si lo esta, mostrar el formulario es 'tontería' y lo redirecciona a la pagina principal ``index_view``, después comprueba si la respuesta viene por el método ``POST``, si no lo es, renderiza la plantilla ``accounts/login.html``, que seria la primea vez que se accede a la pagina.
+La vista, lo primero que comprueba es si esta autenticado, si lo esta, mostrar el formulario es **tontería** y lo redirecciona a la pagina principal ``index_view``, después comprueba si la respuesta viene por el método **POST**, si no lo es, renderiza la plantilla ``accounts/login.html``, que seria la primea vez que se accede a la pagina.
 
-En caso contrario, significa que la respuesta es por método ``POST``, entonces obtiene los valores de los campos ``username`` y ``password`` del formulario con ``request.POST.get('nombre_campo')``
+En caso contrario, significa que la respuesta es por método **POST**, entonces obtiene los valores de los campos ``username`` y ``password`` del formulario con ``request.POST.get('nombre_campo')``
 
-Ahora, comprueba una autenticacion, que lo que hace es comprobar si ``username`` y ``password`` coinciden con un usuario en la base de datos y en caso de éxito devolverá un objeto con el usuario, en caso contrario devolverá ``None`` con lo que podemos redirecionar otra vez al formulario con el mensaje **'Nombre de usuario o contraseña no valido'**
+Ahora, comprueba una autenticación, que lo que hace es comprobar si **username** y **password** coinciden con un usuario en la base de datos y en caso de éxito devolverá un objeto con el usuario, en caso contrario devolverá ``None`` con lo que podemos redirecionar otra vez al formulario con el mensaje **Nombre de usuario o contraseña no valido.**
 
-Si ``user`` no es ``None``, significa que es un objeto ``User`` y comprueba si el usuario tiene una cuanta activa, si no la tiene, se debería cambiar el mensaje, para que el usuario sea consciente de por que no puede hacer login. De lo contrario, si todo ha ido bien, el usuario se loguea y lo redirecciona a la vista ``index_view``.
+Si ``user`` no es ``None``, significa que es un objeto ``User`` y comprueba si el usuario tiene una cuanta activa con ``if user.is_active``, si no la tiene, se debería cambiar el mensaje, para que el usuario sea consciente de por que no puede hacer login. De lo contrario, si todo ha ido bien, el usuario se loguea y lo redirecciona a la vista ``index_view``.
 
 La vista ``index_view``, tiene un decorador que comprueba si esta logueado o no, si no lo esta, redireccionara a la pagina de login, de lo contrario, podrá acceder a la vista.
 
 .. note::
 
-    el decorador acepta un parametro (entre otros) ``@login_required(login_url='')``, en caso de omitir el parametro redireccionara al valor de ``tutorial_django.settings.LOGIN_URL``.
+    el decorador acepta un parámetro (entre otros) ``@login_required(login_url='')``, en caso de omitir el parámetro redireccionara al valor de ``tutorial_django.settings.LOGIN_URL``.
 
-Ahora vamos a crear las dos plantillas, la del formulario para hacer login y la pagina index de accounts, esta ultima pagina, simplemente mostrar un mensaje de bienvenida y la foto del usuario.
+Ahora vamos a crear las dos plantillas, la del formulario para hacer login y la pagina **index** de **accounts**, esta ultima pagina, simplemente mostrara un mensaje de bienvenida y la foto del usuario.
 
 .. code-block:: bash
 
@@ -78,7 +78,7 @@ Ahora vamos a crear las dos plantillas, la del formulario para hacer login y la 
         </div>
     {% endblock content %}
 
-Se puede observar que cuando queremos mostrar un archivo **media**, lo hacemos con ``{{ MEDIA_URL }}``, con esto, obtiene la url de ``settings.MEDIA_URL``, el resto, lo obtiene con ``{{ user.userprofile.photo }}``. El objeto ``user`` esta accesible en todos los templates, accede a ``UserProfile`` con el mismo nombre pero en minúsculas y finalmente accede a la propiedad ``photo``
+Se puede observar que cuando queremos mostrar un archivo **media**, lo hacemos con ``{{ MEDIA_URL }}``, con esto, obtiene la **url** de ``settings.MEDIA_URL``, el resto, lo obtiene con ``{{ user.userprofile.photo }}``. El objeto **user** esta accesible en todos las plantillas, accede a ``UserProfile`` con el mismo nombre pero en minúsculas y finalmente accede a la propiedad ``photo``
 
 .. code-block:: html
 
@@ -114,7 +114,7 @@ Se puede observar que cuando queremos mostrar un archivo **media**, lo hacemos c
         </div>
     {% endblock content %}
 
-Por ultimo, tenemos que añadir las dos urls en el URLconf
+Por ultimo, tenemos que añadir las dos **urls** en el **URLconf**.
 
 .. code-block:: python
 
@@ -131,9 +131,9 @@ Por ultimo, tenemos que añadir las dos urls en el URLconf
 
 Vamos a ver si todo funciona mas o menos bien :P, para ello, si estas logueado (hasta ahora, la única manera de hacerlo era a través de la administración) y entras a `http://127.0.0.1:8000/accounts/login/ <http://127.0.0.1:8000/accounts/login/>`_, veras que te redirecciona a `http://127.0.0.1:8000/accounts/ <http://127.0.0.1:8000/accounts/>`_ (así que, deslogueate desde la administración y prueba de nuevo).
 
-Y si lo haces al reves, si no estas logueado e intentas acceder a `http://127.0.0.1:8000/accounts/ <http://127.0.0.1:8000/accounts/>`_, te redireccionara a `http://127.0.0.1:8000/accounts/login/ <http://127.0.0.1:8000/accounts/login/>`_.
+Y si lo haces al revés, si no estas logueado e intentas acceder a `http://127.0.0.1:8000/accounts/ <http://127.0.0.1:8000/accounts/>`_, te redireccionara a `http://127.0.0.1:8000/accounts/login/ <http://127.0.0.1:8000/accounts/login/>`_.
 
-¿No puedes ver la imagen?, :), primero en ``tutorial_django/settings`` en la lista ``TEMPLATES``, hay otra lista ``context_processors``, asegurate que ``'django.template.context_processors.media',`` esta incluido en la lista (en Django 1.8, no viene por defecto), a parte, cuando estes con el servidor de desarrollo, en ``totorial_django/urls.py`` inserta lo siguiente:
+¿No puedes ver la imagen?, :), primero en ``tutorial_django/settings`` en la lista ``TEMPLATES``, hay otra lista ``context_processors``, asegúrate que ``'django.template.context_processors.media',`` esta incluido en la lista (en Django 1.8, no viene por defecto), a parte, cuando estés con el servidor de desarrollo, en ``totorial_django/urls.py`` inserta lo siguiente:
 
 .. code-block:: python
 

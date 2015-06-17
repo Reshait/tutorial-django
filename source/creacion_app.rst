@@ -7,13 +7,13 @@
 Crear nuestra primera app
 =========================
 
-Una aplicación (app), no es mas que un paquete Python con una estructura básica para hacer algo concreto, por ejemplo blog, about, contact seria cada una de ellas una aplicación. Las aplicaciones en Django, están (en un principio) totalmente desacopladas y puedes tener apps en varios proyectos sin modificar ni una sola linea de código, el único requisito es que este en la variable de entorno ``PYTHONPATH``
+Una aplicación (**app**), no es mas que un paquete Python con una estructura básica para hacer algo concreto, por ejemplo **blog**, **about**, **contact** seria cada una de ellas una aplicación. Las aplicaciones en Django, están (en un principio) totalmente desacopladas y puedes tener **apps** en varios proyectos sin modificar ni una sola linea de código, el único requisito es que este en la variable de entorno ``PYTHONPATH``
 
 .. note::
 
-    Cuando ejecutamos un archivo ``.py`` Python añade el directorio actual en ``PYTHONPATH``, por lo tanto, durante el desarrollo, cuando levantemos el servidor, al hacerlo a traves de ``manage.py`` ``src`` estara en ``PYTHONPATH``.
+    Cuando ejecutamos un archivo ``.py`` Python añade el directorio actual en ``PYTHONPATH``, por lo tanto, durante el desarrollo, cuando levantamos el servidor, al hacerlo a través de ``manage.py`` ``src`` estará en ``PYTHONPATH``.
 
-Vamos a crear nuestra primera app, crearemos el ``home`` de nuestro sitio, para crear nuestra app, abriremos la terminal e iremos hasta ``src`` y ejecutaremos:
+Vamos a crear nuestra primera **app**, crearemos el **home** de nuestro sitio, para crear nuestra **app**, abriremos la terminal e iremos hasta ``src`` y ejecutaremos:
 
 .. code-block:: bash
 
@@ -21,9 +21,9 @@ Vamos a crear nuestra primera app, crearemos el ``home`` de nuestro sitio, para 
 
 .. note::
 
-    Si el comando anterior da algun error (en windows creo), usar ``python manage.py startapp home`` o en windows ``.\manage.py startapp home``.
+    Si el comando anterior da algun error (en Windows creo), usar ``python manage.py startapp home`` o en windows ``.\manage.py startapp home``.
 
-El comando anterior es posible crearlo con ``django-admin``, muy útil cuando se crean apps en otros directorios que no sean en la raíz del proyecto. Lo que el comando ``manage.py startapp`` lo único que hace es crear una estructura, que tranquilamente se podría crear los directorios y archivos a mano. El comando anterior crea la siguiente estructura:
+El comando anterior es posible crearlo con ``django-admin``, muy útil cuando se crean **apps** en otros directorios que no sean en la raíz del proyecto. Lo que el comando ``manage.py startapp``  hace es crear una estructura, que tranquilamente se podría crear los directorios y archivos a mano. El comando anterior crea la siguiente estructura:
 
 .. code-block:: bash
 
@@ -42,12 +42,12 @@ Examinemos los distintos archivos que ha creado el comando anterior, nos crea un
 
     `fuente <https://docs.djangoproject.com/en/1.8/topics/migrations/>`_
 
-``admin.py`` es donde crearemos la forma que se vera la app en la administración de Django. |br|
-``models.py`` es donde crearemos los modelos y es el 'puente' entre Django y la base de datos. |br|
+``admin.py`` donde crearemos la forma que se vera la **app** en la administración de Django. |br|
+``models.py`` donde crearemos los modelos y es el 'puente' entre Django y la base de datos. |br|
 ``test.py`` para test unitarios, no se trata el tema en el tutorial. |br|
 ``views.py`` donde crearemos las vistas (o controladores, para los que vengan de otros Frameworks).
 
-Con todo esto en mente, vamos a crear el primer ``Hello world`` :), en primer lugar, tenemos que decirle a Django que incluya la aplicación, para ello, editamos ``tutotial_django/settings.py``
+Con todo esto en mente, vamos a crear el primer **Hello world** :), en primer lugar, tenemos que decirle a Django que incluya la aplicación, para ello, editamos ``tutotial_django/settings.py``
 
 Vamos a ``INSTALLED_APPS`` y añadimos la siguiente linea:
 
@@ -66,6 +66,6 @@ Vamos a ``INSTALLED_APPS`` y añadimos la siguiente linea:
         'home',
     )
 
-Ahora, Django conocerá que tenemos una aplicación y buscara templates, archivos de migración, etc, dentro de esa app.
+Ahora, Django conocerá que tenemos una aplicación y buscara templates (plantillas), archivos de migración, etc, dentro de esa **app**.
 
-En la siguiente sección, modificaremos las urls para poder acceder a las vistas.
+En la siguiente sección, modificaremos las **urls** para poder acceder a las vistas.

@@ -3,7 +3,7 @@
 Administración
 ==============
 
-La administración de Django es un añadido espectacular, genera dinamicamente un sistema CRUD que nos ahorra cientos de horas, que incluso usando otros lenguajes como PHP o ASP.NET MVC 6 (vnext), yo al menos incluiría el sistema al menos para la parte del desarrollo por lo cómodo que es.
+La administración de Django es un añadido espectacular, genera dinamicamente un sistema **CRUD** que nos ahorra cientos de horas, que incluso usando otros lenguajes como PHP o ASP.NET MVC 6 (vnext), yo al menos incluiría el sistema al menos para la parte del desarrollo por lo cómodo que es.
 
 Lo vimos con :ref:`reference-accounts-index`, donde mostrábamos como podíamos editar, añadir o ver los perfiles de usuario.
 
@@ -11,7 +11,7 @@ Para empezar vamos a hacer lo mismo, en primer lugar arrancamos el servidor ``./
 
 .. image:: ../_static/blog_admin.png
 
-Se observa (y ahora, se esperaba) que no muestra los modelos creados en el **blog**, para ello, como con **accounts**, editamos el archivo ``blog/admin.py`` para incluir los modelos a la administración.
+Se observa (y ahora, se esperaba) que no muestra los modelos creados en el blog, para ello, como con **accounts**, editamos el archivo ``blog/admin.py`` para incluir los modelos a la administración.
 
 .. code-block:: python
 

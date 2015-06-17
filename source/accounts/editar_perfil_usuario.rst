@@ -5,13 +5,13 @@ Editar perfil de usuario
 
 Ahora tenemos que darle la oportunidad al usuario de poder modificar datos, como cambiar el email, contraseña y la foto.
 
-Para empezar, vamos a modificar la pagina principal de ``accounts`` para añadir links a la edicion por separado de los datos.
+Para empezar, vamos a modificar la pagina principal de **accounts** para añadir links a la edición por separado de los datos.
 
 Vamos a añadir un menú lateral, para poner los links y después, añadiremos tres plantillas, ``editar_contrasena.html``, ``editar_foto.html``, ``editar_email.html``.
 
-Como las tres paginas (a parte de ``index.html``), incluirán el menu lateral, seria repetirse cuatro veces la parte del menú, por lo que vamos a crear una plantilla ``_menu.html``.
+Como las tres paginas (a parte de **index.html**), incluirán el menú lateral, seria repetirse cuatro veces la parte del menú, por lo que vamos a crear una plantilla **_menu.html**.
 
-Aparte, necesitamos una plantilla para representa el menú en un lado y el contenido, en el resto de la pagina, crearemos también una platilla ``base_accounts.html`` que represente ambos espacios.
+Aparte, necesitamos una plantilla para representa el menú en un lado y el contenido, en el resto de la pagina, crearemos también una platilla **base_accounts.html** que represente ambos espacios.
 
 Vamos a crear los archivos:
 
@@ -19,7 +19,7 @@ Vamos a crear los archivos:
 
     touch accounts/templates/accounts/{base_accounts.html,editar_contrasena.html,editar_foto.html,editar_email.html}
 
-Editamos ``base_accounts.html``
+Editamos ``accounts/templates/accounts/base_accounts.html``
 
 .. code-block:: html
 
@@ -42,9 +42,9 @@ Editamos ``base_accounts.html``
         </div>
     {% endblock content %}
 
-Mas tarde, ya añadiremos los links, pero por ahora, para hacerse una idea ya vale.
+Mas tarde, ya añadiremos los links, por ahora, para hacerse una idea ya vale.
 
-Editamos ``index.html``
+Editamos ``accounts/templates/accounts/index.html``
 
 .. code-block:: html
 
@@ -62,12 +62,12 @@ Editamos ``index.html``
         </div>
     {% endblock accounts_content %}
 
-Los cambios (``{% extends 'accounts/base_accounts.html' %}`` y los blocks ``{% block accounts_content %}`` y ``{% endblock accounts_content %}``), son faciles de entender, en vez de usar ``extends`` de ``base.html`` (``base_accounts.html`` usa ``extends`` a ``base.html``, por lo que no perderemos el diseño anterior) usara uno para que las cuatro paginas, tengan el mismo aspecto.
+Los cambios (``{% extends 'accounts/base_accounts.html' %}`` y los blocks ``{% block accounts_content %}`` y ``{% endblock accounts_content %}``), son fáciles de entender, en vez de usar ``extends`` de ``base.html`` (``base_accounts.html`` usa ``extends`` a ``base.html``, por lo que no perderemos el diseño anterior) usara uno para que las cuatro paginas, tengan el mismo aspecto.
 
 Editar Email
 ************
 
-Empecemos con editar email, necesitamos un formulario de un solo campo, después el email ha de ser único en la base de datos (si lo ha cambiado, comprobar que no exista uno igual), en caso de éxito, redireccionamos otra vez a index, en caso contrario, se lo notificaremos a usuario.
+Empecemos con editar email, necesitamos un formulario de un solo campo, después el email ha de ser único en la base de datos (si lo ha cambiado, comprobar que no exista uno igual), en caso de éxito, redireccionamos otra vez a **index**, en caso contrario, se lo notificaremos a usuario.
 
 El formulario
 
@@ -150,7 +150,7 @@ URLconf
     # Añadimos en urlpatterns
     url(r'^editar_email/$', views.editar_email, name='accounts.editar_email'),
 
-Y actualizamos el link en ``base_accounts.html``
+Y actualizamos el link en ``accounts/templates/accounts/base_accounts.html``
 
 .. code-block:: html
 
@@ -223,9 +223,9 @@ La vista
         return render(request, 'accounts/editar_contrasena.html', {'form': form})
 
 
-Observa como usamos ``make_password()`` para generar un password con hash (no se traducir esto, lo siento :)), es muy importante, ya que si no, guardara la contraseña en texto plano y es un gran error por motivos de seguridad!.
+Observa como usamos ``make_password()`` para generar un **password** con **hash** (no se traducir esto, lo siento :)), es muy importante, ya que si no, guardara la contraseña en texto plano y es un gran error por motivos de seguridad!.
 
-(Lo pongo aquí, aunque es seria parte del ``EditarContrasenaForm``), también hay una función ``check_password() <https://docs.djangoproject.com/en/1.4/topics/auth/#django.contrib.auth.hashers.check_password>`_, que podríamos a ver comprobado en un método ``clean_actual_password()`` y comprobar si ``actual_password`` es igual a ``password`` informar al usuario que esta usando la misma contraseña que la actual (lo dejo para el lector).
+(Lo pongo aquí, aunque seria parte del ``EditarContrasenaForm``), también hay una función ``check_password() <https://docs.djangoproject.com/en/1.4/topics/auth/#django.contrib.auth.hashers.check_password>`_, que podríamos a ver comprobado en un método ``clean_actual_password()`` y comprobar si ``actual_password`` es igual a **password** informar al usuario que esta usando la misma contraseña que la actual (lo dejo como ejercicio para el lector).
 
 La plantilla
 
@@ -265,4 +265,4 @@ Actualizar ``base_accounts.html``
 
     <a href="{% url 'accounts.editar_contrasena' %}" class="list-group-item">Editar contraseña</a>
 
-Ya solo queda editar la imagen, pero lo dejo como ejercicio para el lector, ademas, también dejo como ejercicio, si nos fijamos, las plantillas ``editar_x`` son prácticamente iguales, es decir nos repetimos demasiado!!, intenta que con una plantilla muestra los datos que quieres mostrar. Como pista podrías crear una sola pagina de formulario y dentro de la pagina añadir variables ``{{ titulo }}``, etc y pasarlas de las vistas a las plantillas como contexto.
+Ya solo queda editar la imagen, pero lo dejo como ejercicio para el lector, ademas, también dejo como ejercicio, si nos fijamos, las plantillas ``editar_x`` son prácticamente iguales, es decir nos repetimos demasiado!!, intenta que con una plantilla muestra los datos que quieres mostrar. Como pista podrías crear una sola pagina de formulario y dentro de la pagina añadir variables de contexto ``{{ titulo }}``, etc y pasarlas de las vistas a las plantillas.

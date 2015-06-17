@@ -5,7 +5,7 @@ Logout de un usuario
 
 Ahora nos queda que el usuario pueda desloguearse del sitio, de lo que llevamos hecho, esto es lo mas fácil y sobre todo, como ya debes entender el funcionamiento de las vistas y plantillas, pues todo sera rápido y sin dolor!.
 
-Como siempre, se ha de crear una vista y añadir la ``url()`` al URLconf, pero en esta ocasión, no vamos a crear una plantilla, a cambio, lo mostraremos con un mensaje para así echar un ojo al sistema ``django.contrib.messages`` (hasta los haremos un poco bonitos :P).
+Como siempre, se ha de crear una vista y añadir la ``url()`` al **URLconf**, pero en esta ocasión, no vamos a crear una plantilla, a cambio, lo mostraremos con un mensaje para así echar un ojo al sistema ``django.contrib.messages`` (hasta los haremos un poco bonitos :P).
 
 Empecemos con la vista, es tan simple que ni la comentare.
 
@@ -23,7 +23,7 @@ Empecemos con la vista, es tan simple que ni la comentare.
         messages.success(request, 'Te has desconectado con exito.')
         return redirect(reverse('accounts.login'))
 
-Antes de continuar, vamos a crear un pequeño sistema que muestra los mensajes con un poco de estilo css gracias a bootstrap.
+Antes de continuar, vamos a crear un pequeño sistema que muestra los mensajes con un poco de estilo **CSS** gracias a **Bootstrap**.
 
 .. code-block:: html
 
@@ -33,9 +33,9 @@ Antes de continuar, vamos a crear un pequeño sistema que muestra los mensajes c
     {% include '_messages.html' %}
     {% block content %}{% endblock content %}
 
-Con la etiqueta {% include '_nombre_plantilla.html' %} importa un archivo .html y lo 'vuelca' en el lugar donde es llamado.
+Con la etiqueta {% include '_nombre_plantilla.html' %} importa un archivo **html** y lo **'vuelca'** en el lugar donde es llamado.
 
-El archivo ``_messages.html`` es una plantilla que ahora vamos a crear y lo creamos en ``templates`` de la raiz del proyecto.
+El archivo ``_messages.html`` es una plantilla que ahora vamos a crear y lo creamos en ``templates`` de la raíz del proyecto.
 
 .. code-block:: html
 
@@ -57,7 +57,7 @@ El archivo ``_messages.html`` es una plantilla que ahora vamos a crear y lo crea
         </div>
     {% endif %}
 
-Primero comprueba si existe una variable ``messages`` y en caso de existir, mostrara el mensaje con un estilo (usando bootstrap), con un diseño decente, si no existe ``messages``, no insertara nada.
+Primero comprueba si existe una variable ``messages`` y en caso de existir, mostrara el mensaje con un estilo (usando **Bootstrap**), con un diseño decente, si no existe ``messages``, no insertara nada.
 
 También vamos a poner en la barra de navegación, un link para que un usuario pueda hacer login/logout.
 
@@ -135,7 +135,7 @@ Resalto la parte añadida:
       {% endif %}
     </ul>
 
-Como se vio anteriormente, el objeto ``user``, esta disponible en las plantillas y un método es ``is_autenthicate`` (como también se vio en una vista), por lo que si esta autenticado, mostrara el botón para acceder al indice de la cuenta con el nombre del usuario y ``Logout`` para darle la posibilidad de desloguearse del sistema, en caso contrario, mostrara los botones ``Registro`` y ``Login`` para que pueda registrarse o loguearse respectivamente.
+Como se vio anteriormente, el objeto **user**, esta disponible en las plantillas y un método es ``is_autenthicate`` (como también se vio en una vista), por lo que si esta autenticado, mostrara el botón para acceder al indice de la cuenta con el nombre del usuario y **Logout** para darle la posibilidad de desloguearse del sistema, en caso contrario, mostrara los botones **Registro** y **Login** para que pueda registrarse o loguearse respectivamente.
 
 También se puede ver, que cuando haces logout, mostrara el mensaje ``Te has desconectado con éxito`` con una ``x`` para cerrar el mensaje, el mensaje solo lo mostrara una vez (si actualizas la pagina, no aparecerá) y solo lo ve el usuario que ha hecho logout.
 

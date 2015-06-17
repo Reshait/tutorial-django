@@ -7,13 +7,13 @@ Una de las primeras cosas que se suele hacer, es el manejo de usuarios, como el 
 
 Django tiene un sistema de usuarios, recuerda que nosotros ya tenemos un usuario registrado y ademas es administrador del sitio, es decir que también maneja permisos ademas de sesiones.
 
-Vamos a crear una manera para registrar usuarios en el sitio, primero vamos a crear una app ``accounts`` donde muestre el formulario para registrar usuario. Un modelo para extender los datos del usuario, donde el usuario podrá añadir una imagen/avatar, dentro de esta app, añadiremos la manera para que el usuario pueda hacer 'login' y 'logout'.
+Vamos a crear una manera para registrar usuarios en el sitio, primero vamos a crear una **app accounts** donde muestre el formulario para registrar usuario. Un modelo para extender los datos del usuario, donde el usuario podrá añadir una imagen/avatar, dentro de esta **app**, añadiremos la manera para que el usuario pueda hacer **login y logout**.
 
-Django, como he comentado, incorpora un sistema de manejo de usuarios, si vemos en la base de datos las tablas que creó cuando usamos la primera vez el comando ``./manage.py migrate``, vemos que creó las tablas ``auth_*`` y las sesiones con ``django_session``. Si nos fijamos en la tabla ``auth_user`` vemos las columnas ``id, password, is_superuser, username, etc``, eso significa que Django tiene un modelo que hace de 'puente' entre Django y la base de datos.
+Django, como he comentado, incorpora un sistema de manejo de usuarios, si vemos en la base de datos las tablas que creó cuando usamos la primera vez el comando ``./manage.py migrate``, vemos que creó las tablas ``auth_*`` y otra para las sesiones, ``django_session``. Si nos fijamos en la tabla ``auth_user`` vemos las columnas ``id, password, is_superuser, username, etc``, eso significa que Django tiene un modelo que hace de 'puente' entre Django y la base de datos.
 
-Vamos a crear nuestro primer modelo que tenga una relación ``One to One`` donde una campo del modelo que crearemos sera una relación con el modelo ``User`` en la base de datos, la tabla es ``auth_user``.
+Vamos a crear nuestro primer modelo que tenga una relación **One to One** donde una campo del modelo que crearemos sera una relación con el modelo ``User`` en la base de datos, la tabla es ``auth_user``.
 
-En primer lugar, vamos a crear la app ``accounts``
+En primer lugar, vamos a crear la **app accounts**
 
 .. code-block:: bash
 
@@ -27,9 +27,9 @@ Ahora, en ``tutorial_django/settings.py`` al final del archivo añadimos
     LOGIN_URL = '/accounts/login/'
     LOGOUT_URL = '/accounts/logout/'
 
-``LOGIN_URL`` y ``LOGOUT_URL``, los pongo para mostrarlos, pero usa los mismos valores que por defecto, cuando una pagina requiera que el usuario este logueado (por medio de decoradores en las vistas), lo redireccionara automáticamente a ``LOGIN_URL`` y cuando un usuario haga logout lo redireccionara al valor de ``LOGOUT_URL``
+``LOGIN_URL`` y ``LOGOUT_URL``, los pongo para mostrarlos, pero usa los mismos valores que tienen por defecto, cuando una pagina requiera que el usuario este logueado (por medio de decoradores en las vistas, por ejemplo), lo redireccionara automáticamente a ``LOGIN_URL`` y cuando un usuario haga logout lo redireccionara al valor de ``LOGOUT_URL``
 
-El siguiente paso es decirle a Django que hemos creado una app, en el mismo archivo ``tutorial_django/settings.py``, en ``INSTALLED_APPS`` añadimos ``accounts``
+El siguiente paso es decirle a Django que hemos creado una **app**, en el mismo archivo ``tutorial_django/settings.py``, en ``INSTALLED_APPS`` añadimos ``accounts``
 
 .. code-block:: python
 
@@ -64,11 +64,11 @@ Ahora, vamos a crear nuestro modelo, para ello, editamos ``accounts/models.py`` 
 
 Cada modelo es una subclase de ``django.db.models.Model`` y cada atributo de la clase ``UserProfile`` representa una columna en la base de datos.
 
-Cuando hagamos una migración (ahora, dentro de un rato), veremos que los nombres de tablas en la base de datos, por defecto las crea de la siguiente manera, nombreapp_nombremodelo, convierte todo a minusculas y pone un guion bajo ``_`` entre el nombre de la app y el nombre del modelo, es decir, cuando cree la tabla en la base de datos nuestro modelo ``UserProfile``, creara una tabla con el nombre ``accounts_userprofile``.
+Cuando hagamos una **migración** (ahora, dentro de un rato), veremos que los nombres de tablas en la base de datos, por defecto las crea de la siguiente manera, nombreapp_nombremodelo, convierte todo a minusculas y pone un guion bajo ``_`` entre el nombre de la **app** y el nombre del modelo, es decir, cuando cree la tabla en la base de datos nuestro modelo ``UserProfile``, creara una tabla con el nombre ``accounts_userprofile``.
 
 Cada propiedad en el modelo ``UserProfile``, es una clase en el modulo ``models`` y aquí tienes una `lista <https://docs.djangoproject.com/en/1.8/ref/models/fields/#field-types>`_ con todos los campos y opciones en los argumentos de cada campo.
 
-Otra cosa a comentar, es la linea ``from django.conf import settings``, tambien podriamos a ver puesto ``from django.contrib.auth import User``, pero tal y como lo hemos puesto, nos aseguramos que siempre leemos el modelo ``User`` que estamos usando, ya que todo esto lo podemos personalizar y crear nuestros propios modelos ``User``, por defecto `settings.AUTH_USER_MODEL <https://docs.djangoproject.com/en/1.8/ref/settings/#auth>`_ es `auth.User`.
+Otra cosa a comentar, es la linea ``from django.conf import settings``, también podíamos a ver puesto ``from django.contrib.auth import User``, pero tal y como lo hemos puesto, nos aseguramos que siempre leemos el modelo ``User`` que estamos usando, ya que todo esto lo podemos personalizar y crear nuestros propios modelos ``User``, por defecto `settings.AUTH_USER_MODEL <https://docs.djangoproject.com/en/1.8/ref/settings/#auth>`_ es `auth.User`.
 
 Antes de continuar, tenemos que instalar un paquete Python `Pillow <https://github.com/python-pillow/Pillow>`_ para manejar imágenes.
 
@@ -77,7 +77,7 @@ Antes de continuar, tenemos que instalar un paquete Python `Pillow <https://gith
     # Dentro del entorno virtual (tutorial_django)
     pip install Pillow
 
-Ahora vamos a crear nuestra primera migración de una app creada, para ello, en la terminal usamos el comando ``makemigrations nombre_app``
+Ahora vamos a crear nuestra primera migración de una **app** creada, para ello, en la terminal usamos el comando ``makemigrations nombre_app``
 
 .. code-block:: bash
 
@@ -85,17 +85,21 @@ Ahora vamos a crear nuestra primera migración de una app creada, para ello, en 
 
 De momento, si vemos en el explorador de archivos, dentro de ``src/accounts/migrations`` se ha creado un archivo ``0001_initial.py`` y si lo abrimos, podemos ver que creara tres campos, ``id``, que lo crea de manera implícita (todos lo modelos crea un campo ``id`` de manera implícita a no ser que se diga de manera explicita), ``photo`` y ``user``.
 
-Pero si vemos en la base de datos, aun no ha creado nada y antes de que lo cree, vamos a usar el comando ``sqlmigrate nombre_app nombre_migracion``. En este caso, el nombre_app es ``accounts`` y el nombre_migracion ``0001_initial`` (omitimos el ``.py``), de esta manera podemos ver la sentencia **SQL** que ejecutara cuando usemos el comando ``migrate``.
+Pero si vemos en la base de datos, aun no ha creado nada y antes de que lo cree, vamos a usar el comando ``sqlmigrate nombre_app nombre_migracion``. En este caso, el nombre_app es ``accounts`` y el nombre_migracion ``0001_initial`` (omitimos el ``.py``)(con solo la numeración es suficiente, en este caso ``0001``), de esta manera podemos ver la sentencia **SQL** que ejecutara cuando usemos el comando ``migrate``.
 
 .. code-block:: bash
 
     ./manage.py sqlmigrate accounts 0001_initial
     BEGIN;
-    CREATE TABLE "accounts_userprofile" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "photo" varchar(100) NULL, "user_id" integer NOT NULL UNIQUE REFERENCES "auth_user" ("id"));
+    CREATE TABLE "accounts_userprofile" (
+        "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+        "photo" varchar(100) NULL,
+        "user_id" integer NOT NULL UNIQUE REFERENCES "auth_user" ("id")
+    );
 
 .. note::
 
-    La sentencia SQL puede varias según el RDBMS elegido. La mostrada es la que usara con SQLite.
+    La sentencia SQL puede variar según el **RDBMS** elegido. La mostrada es la que usara con **SQLite**.
 
 Si nos parece bien lo que va hacer, ejecutamos ``migrate`` y ya si que los cambios se reflejaran en la base de datos.
 
@@ -105,7 +109,7 @@ Si nos parece bien lo que va hacer, ejecutamos ``migrate`` y ya si que los cambi
 
 Vamos a ir a la administración de Django `http://127.0.0.1:8000/admin/ <http://127.0.0.1:8000/admin/>`_ y podemos observar que no hay nada diferente!, ¿donde configuramos los nuevos perfiles de los usuarios? :), hay que decirle a la administración Django, que nos muestre el modelo recién creado.
 
-Cuando creamos las apps, un archivo que nos crea en la estructura es ``admin.py``, vamos a editarlo y poner lo siguiente.
+Cuando creamos las **apps**, un archivo que nos crea en la estructura es ``admin.py``, vamos a editarlo y poner lo siguiente.
 
 .. code-block:: python
 
@@ -125,9 +129,9 @@ y si pinchamos, podemos ver que no sale ningún campo
 
 .. image:: ../_static/admin_user_profile_fields.png
 
-Si pinchamos en **Añadir user profile**, podemos añadir datos a usuarios, por que como se puede ver, el campo ``User:``, nos muestra los usuarios que tenemos registrados, en nuestro caso, solo uno y podemos incluir una imagen o no, ya que el campo, cuando lo creemos como parámetros, pusimos ``blank=True, null=True``, ``blank`` es para los formularios, con ``True`` decimos que permitimos que los campos podrán estar vacíos y con ``null`` es para las base de datos, con ``True`` decimos el el campo permite datos nulos (por defecto, ambos campos son False).
+Si pinchamos en **Añadir user profile**, podemos añadir datos a usuarios, por que como se puede ver, el campo **User:**, nos muestra los usuarios que tenemos registrados, en nuestro caso, solo uno y podemos incluir una imagen o no, ya que el campo, cuando lo creemos como parámetros, pusimos ``blank=True, null=True``, ``blank`` es para los formularios, con ``True`` decimos que permitimos que los campos podrán estar vacíos y con ``null`` es para las base de datos, con ``True`` decimos el el campo permite datos nulos (por defecto, ambos campos son ``False``).
 
-Tambien, podemos observar algo no deseado, si vamos al gestor de archivos, podemos ver que nos ha creado un directorio ``profiles`` en la raiz del proyecto, lo ideal es contener los archivos 'media', dentro de un directorio, para configurar donde almacenar los archivos media, vamos al archivo de configuracion ``tutorial_django/settings.py`` y al final del archivo añadimos:
+También, podemos observar algo no deseado, si vamos al gestor de archivos, podemos ver que nos ha creado un directorio **profiles** en la raíz del proyecto, lo ideal es contener los archivos **media**, dentro de un directorio, para configurar donde almacenar los archivos **media**, vamos al archivo de configuración ``tutorial_django/settings.py`` y al final del archivo añadimos:
 
 .. code-block:: python
 
@@ -136,9 +140,9 @@ Tambien, podemos observar algo no deseado, si vamos al gestor de archivos, podem
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     MEDIA_URL = '/media/'
 
-Donde ``MEDIA_ROOT`` indica la ruta física del directorio (en este caso ``/path/directorio/proyecto/src/media``) y ``MEDIA_URL`` es lo mismo que ``STATIC_URL``, en las plantillas, antepondrá en la URI el valor, en este caso tambien ``/media/``.
+Donde ``MEDIA_ROOT`` indica la ruta física del directorio (en este caso ``/path/directorio/proyecto/src/media``, que lo genera dinamicamente con ``os.path.join()``) y ``MEDIA_URL`` es lo mismo que ``STATIC_URL``, en las plantillas, antepondrá en la **URI** el valor, en este caso también ``/media/``.
 
-Ahora vamos a crear el directorio ``media`` en la raiz del proyecto y a mover ``profiles`` dentro de ``media``.
+Ahora vamos a crear el directorio **media** en la raíz del proyecto y a mover **profiles** dentro de **media**.
 
 .. code-block:: bash
 
@@ -147,11 +151,11 @@ Ahora vamos a crear el directorio ``media`` en la raiz del proyecto y a mover ``
 
 Ahora, si cambias la imagen, veras que la nueva imagen la sube a ``src/media/profiles``.
 
-Si nos fijamos en la administracion, podemos ver que ahora tenemos una entrada
+Si nos fijamos en la administración, podemos ver que ahora tenemos una entrada
 
 .. image:: ../_static/admin_user_profile_object.png
 
-Pero, el nombre que muestra ``UserProfile object`` no es muy intuitivo, ahora solo hay uno, pero si hubiesen 100, a ver como averiguamos que elemento pertenece a X usuario...
+Pero, el nombre que muestra ``UserProfile object`` no es muy intuitivo, ahora solo hay uno, pero si hubiesen 100, a ver como averiguamos que elemento pertenece a **X** usuario...
 
 Vamos a solucionar esto, vamos a editar el modelo ``accounts/models.py`` y añadimos el siguiente método
 
@@ -166,13 +170,13 @@ Vamos a solucionar esto, vamos a editar el modelo ``accounts/models.py`` y añad
         def __str__(self):
             return self.user.username
 
-Aquí podemos observar, primero, lo fácil que es acceder los campos de las columnas relacionales, en este caso, obtenemos el campo ``username`` de la clase ``django.contrib.auth.models.User`` que tenga relación con el objeto actual ``UserProfile``, esto es gracias al ORM que incorpora Django y en segundo lugar, si actualizamos la pagina de administración, ahora observamos que nos muestra el username al que pertenece la fila del ``UserProfile``
+Aquí podemos observar, primero, lo fácil que es acceder los campos de las columnas relacionales, en este caso, obtenemos el campo ``username`` de la clase ``django.contrib.auth.models.User`` que tenga relación con el objeto actual ``UserProfile``, esto es gracias al **ORM** que incorpora Django y en segundo lugar, si actualizamos la pagina de administración, ahora observamos que nos muestra el **username** al que pertenece la fila de ``UserProfile``
 
 .. image:: ../_static/admin_user_profile_object1.png
 
-Con ``__str__`` obtenemos 'algo' y no el objeto en si, que era lo que antes nos mostraba.
+Con ``__str__`` obtenemos **'algo'** y no el objeto en si, que era lo que antes nos mostraba. (Se puede pensar en ``__str__`` como ``toString`` en otros lenguajes)
 
-Siguiente paso, crear formularios (.py) para la representación (.html), creamos un archivo ``forms.py`` dentro de la app ``accounts`` y le añadimos el siguiente codigo:
+Siguiente paso, crear formularios **.py** para la representación **.html**, creamos un archivo ``forms.py`` dentro de la **app accounts** y le añadimos el siguiente código:
 
 .. code-block:: python
 
@@ -212,19 +216,17 @@ Siguiente paso, crear formularios (.py) para la representación (.html), creamos
                 raise forms.ValidationError('Las contraseñas no coinciden.')
             return password2
 
-Los formularios son muy parecidos a los modelos, pero en vez de usar el objeto ``model`` usa ``forms``.
+Los formularios son muy parecidos a los modelos, pero en vez de usar un objeto **model** usa **forms**.
 
-Puedes ver `aquí <https://docs.djangoproject.com/en/1.8/ref/forms/fields/>`_ la lista completa de campos y widgets para los formularios.
+Puedes ver `aquí <https://docs.djangoproject.com/en/1.8/ref/forms/fields/>`_ la lista completa de **campos** y **widgets** para los formularios.
 
-A groso modo, podemos ver que ``username`` requiere de al menos 5 caracteres y es un campo tipo 'text', ``email`` es un campo tipo 'email', ``password`` y ``password2`` son campos tipo 'password' y require de al menos 5 caracteres y ``photo`` es un campo tipo 'file' que ademas sera tratado como un archivo de imagen (comprobara que sea un tipo de imagen).
+A groso modo, podemos ver que ``username`` requiere de al menos 5 caracteres y es un campo tipo **text**, ``email`` es un campo tipo **email**, ``password`` y ``password2`` son campos tipo **password** y requiere de al menos 5 caracteres y ``photo`` es un campo tipo **file** que ademas sera tratado como un archivo de imagen (comprobara que sea un tipo de imagen).
 
-Con ``clean_nombre_campo``, donde **nombre_campo** es un campo de propiedad, lo que hace, es una validación personalizada cuando el usuario le da al botón del formulario, en este caso, comprueba que ``password`` y ``password2`` sean iguales (por eso ``password2`` no le puse ``min_length=5``, por que aqui han de ser iguales y si ``password`` no cumple con los requisitos, lanzara un ``forms.ValidationError``).
+Con ``clean_nombre_campo``, donde **nombre_campo** es un campo de propiedad, lo que hace, es una validación personalizada cuando el usuario le da al botón del formulario, en este caso, comprueba que ``password`` y ``password2`` sean iguales (por eso ``password2`` no le puse ``min_length=5``, por que aquí han de ser iguales y si ``password`` no cumple con los requisitos, lanzara un ``forms.ValidationError``).
 
-Se puede ver que ``clean_username`` y ``clean_email`` comprueba si existe un ``username`` o ``email`` en la base de datos, si existe lanzara un ``forms.ValidationError()``.
+Se puede ver que ``clean_username`` y ``clean_email`` comprueba si existe un **username** o **email** en la base de datos, si existe lanzara un ``forms.ValidationError()``.
 
-TODO: Falta crear una seccion para explicar el funcionamiento del ORM
-
-Ahora, nos queda ver como implementar esto para que lo muestre en un archivo html, primero vamos a crear la vista para el registro (de momento, simplificada).
+Ahora, nos queda ver como implementar esto para que lo muestre en un archivo **html**, primero vamos a crear la vista para el registro (de momento, simplificada).
 
 .. code-block:: python
 
@@ -245,13 +247,13 @@ Ahora, nos queda ver como implementar esto para que lo muestre en un archivo htm
         }
         return render(request, 'accounts/registro.html', context)
 
-Lo que hacemos es importar el formulario que acabamos de crear ``RegistroUserForm``, despues creamos la vista para manejar los datos y dentro de la vista esto es lo que hace.
+Lo que hacemos es importar el formulario que acabamos de crear ``RegistroUserForm``, después creamos la vista para manejar los datos y dentro de la vista esto es lo que hace.
 
-Comprueba si ``method`` de la solicitud (request), es ``POST``, es decir, si le a dado al botón del formulario, en caso de afirmativo, crea una instancia de ``RegistroUserForm`` y lo rellena con los datos ``request.POST, request.FILES``, que son los datos del formulario (si no tuviera un tipo file, no haría falta ``request.FILES``), en caso contrario, es decir la primera carga de la pagina que el ``method`` seria ``GET``, simplemente instanciaria ``RegistroUserForm`` sin datos.
+Comprueba si ``method`` de la solicitud (**request**), es **POST**, es decir, si le a dado al botón del formulario, en caso de afirmativo, crea una instancia de ``RegistroUserForm`` y lo rellena con los datos ``request.POST, request.FILES``, que son los datos del formulario (si no tuviera un tipo file, no haría falta ``request.FILES``), en caso contrario, es decir la primera carga de la pagina que el ``method`` seria **GET**, simplemente instanciaria ``RegistroUserForm`` sin datos.
 
 Por ultimo almacenos el formulario en el contexto y renderizamos la pagina, devolviendo la respuesta, el ruta/nombre plantilla y el contexto.
 
-Es necesario crear una ``url()`` en el archivo URLconf, primero, vamos a ``tutorial_django/urls.py`` y añadimos la siguiente url dentro de la lista ``urlpatterns``:
+Es necesario crear una ``url()`` en el archivo **URLconf**, primero, vamos a ``tutorial_django/urls.py`` y añadimos la siguiente **url** dentro de la lista ``urlpatterns``:
 
 .. code-block:: python
 
@@ -277,7 +279,7 @@ Creamos el archivo ``accounts/urls.py`` y añadimos lo siguiente
         url(r'^registro/$', views.registro_usuario_view, name='accounts.registro'),
     ]
 
-Ya como paso final, creamos el direcorio ``accounts/templates/accounts`` y dentro creamos el archivo html ``registro.html`` con el siguiente contenido:
+Ya como paso final, creamos el directorio ``accounts/templates/accounts`` y dentro creamos el archivo **html** ``registro.html`` con el siguiente contenido:
 
 .. code-block:: html
 
@@ -307,13 +309,13 @@ Una vez mas extendemos la plantilla usando ``base.html``, le damos un ``<title><
 
 .. note::
 
-    ``{% block content %}{% endblock content %}`` se puede escribir ``{% block content %}{% endblock %}`` pero a mi personalmente me gusta añadir en el endblock el nombre al que pertenece el bloque, por claridad.
+    ``{% block content %}{% endblock content %}`` se puede escribir ``{% block content %}{% endblock %}`` pero a mi personalmente me gusta añadir en el **endblock** el nombre al que pertenece el bloque, por claridad.
 
-En cuando al formulario hay una tag nueva ``{% csrf_token %}`` (`wikipedia <http://es.wikipedia.org/wiki/Cross_Site_Request_Forgery>`_ y `documentacion Django <https://docs.djangoproject.com/en/1.8/ref/csrf/>`_ lectura obligatoria) la etiqueta es obligatoria por defecto en formularios con ``method="post"``.
+En cuanto al formulario hay una **tag** nueva ``{% csrf_token %}`` (`wikipedia <http://es.wikipedia.org/wiki/Cross_Site_Request_Forgery>`_ y `documentacion Django <https://docs.djangoproject.com/en/1.8/ref/csrf/>`_ lectura obligatoria) la etiqueta es obligatoria por defecto en formularios con ``method="post"``.
 
-``{{ form.as_p }}`` ``form`` es la variable de contexto que pasamos desde la vista (un objeto ``RegistroUSerForm``, que a su vez es subclase de ``django.forms.Form``), muestra una representacion en html de los campos. Al usar ``as_p``, rodea los elementos del formulario en etiquetas ``<p>``.
+``{{ form.as_p }}`` ``form`` es la variable de contexto que pasamos desde la vista (un objeto ``RegistroUserForm``, que a su vez es subclase de ``django.forms.Form``), muestra una representación en **html** de los campos. Al usar ``as_p``, rodea los elementos del formulario en etiquetas ``<p>``.
 
-A parte de ``form.as_p`` hay dos opciones mas ``form.as_table`` y ``form.as_ul``, todos hacen los mismo, lo único a tener en cuanta es que ``as_ul`` y ``as_table`` insertan las propiedades del form en ``<tr><td>label</td><input></tr>`` es decir, omite ``<table>`` y ``</table>`` (``as_ul`` omite ``<ul>`` y ``</ul>``), por otro lado, también saber que ``{{ form.as_X }}`` no añade las etiquetas html ``<form></form>`` ni lo botones.
+A parte de ``form.as_p`` hay dos opciones mas ``form.as_table`` y ``form.as_ul``, todos hacen los mismo, lo único a tener en cuanta es que ``as_ul`` y ``as_table`` insertan las propiedades del **form** en ``<tr><td>label</td><input></tr>`` es decir, omite ``<table>`` y ``</table>`` (``as_ul`` omite ``<ul>`` y ``</ul>``), por otro lado, también saber que ``{{ form.as_X }}`` no añade las etiquetas **html** ``<form></form>`` ni lo botones.
 
 Si vamos al navegador con la url `http://127.0.0.1:8000/accounts/registro/ <http://127.0.0.1:8000/accounts/registro/>`_ podemos ver el siguiente resultado:
 
@@ -321,7 +323,7 @@ Si vamos al navegador con la url `http://127.0.0.1:8000/accounts/registro/ <http
 
 Realmente sencillo, ahora se puede añadir o quitar campos de una manera muy sencilla o usar este formulario en otras vistas/plantillas sin cambiar nada.
 
-Vamos a poner un poco de estilo con los ``widgets``, volvemos al archivo ``accounts/forms.py`` y añadimos los widgets
+Vamos a poner un poco de estilo con los **widgets**, volvemos al archivo ``accounts/forms.py`` y añadimos los **widgets**.
 
 .. code-block:: python
 
@@ -413,14 +415,14 @@ Ahora falta '¿Que hacer cuando se han validado los datos?', para ello abrimos e
 
 El código ya esta comentado, pero me gustaría comentar el redireccionamiento que se ha hecho cuando el formulario ha sido valido.
 
-Las partes de codigo importantes son las siguiente:
+Las partes de código importantes son las siguiente:
 
 .. code-block: python
 
     from django.shortcuts import redirect
     from django.core.urlresolvers import reverse
 
-Importar los módulos a usar, mientras ``redirect`` redirecciona a otra pagina (como si lo escribiera en la barra de navegación del explorador), ``reverse`` obtiene a que URI rediseccionar, el primer parámetro de ``reverse`` es el ``name=''`` que se pone en los URLconf y los ``kwargs`` son los parámetros dinamicos que espera en el patron de ``url()``.
+Importar los módulos a usar, mientras ``redirect`` redirecciona a otra pagina (como si lo escribiera en la barra de navegación del explorador), ``reverse`` obtiene a que **URI** rediseccionar, el primer parámetro de ``reverse`` es el ``name=''`` que se pone en los **URLconf** y los ``kwargs`` son los parámetros dinámicos que espera en el patrón de ``url()``.
 
 .. code-block:: python
 
@@ -432,7 +434,7 @@ Importar los módulos a usar, mientras ``redirect`` redirecciona a otra pagina (
         name='accounts.gracias'
     ),
 
-Esta es la url que se ha añadido al URLconf y se pude ver ``(?P<username>[\w]+)`` que es una simple expresión regular.
+Esta es la **url** que se ha añadido al **URLconf** y se pude ver ``(?P<username>[\w]+)`` que es una simple expresión regular, donde ``<username>`` es la variable que pasara a la vista con el valor ``[\w]+``.
 
 Ahora queda la plantilla ``accounts/templates/accounts/gracias.html`` con el siguiente código
 
@@ -448,8 +450,8 @@ Ahora queda la plantilla ``accounts/templates/accounts/gracias.html`` con el sig
         <h2>{{ username }} gracias por registrarte!</h2>
     {% endblock content %}
 
-Ya tenemos un registro básico en la base de datos, podemos ir a la administración y ver que se han creado 2 filas, una en la tabla Usuarios y otra en User profiles.
+Ya tenemos un registro básico en la base de datos, podemos ir a la administración y ver que se han creado 2 filas, una en la tabla **Usuarios** y otra en **User profiles**.
 
-Esto ha sido una manera de hacer un registro de usuario con un profile, hay varias maneras de hacer las cosas e incluso paquetes de terceros, el objetivo era ver los formularios con ``forms.Form``, pero también es posible crear formularios obteniendo los datos de los modelos '``forms.ModelForm``' que veremos mas adelante. Tambien hemos visto como podemos validar los datos de los campos y lanzar errores ``forms.ValidationError()``.
+Esto ha sido una manera de hacer un registro de usuario con un profile, hay varias maneras de hacer las cosas e incluso paquetes de terceros, el objetivo era ver los formularios con ``forms.Form``, pero también es posible crear formularios obteniendo los datos de los modelos '``forms.ModelForm``' que veremos mas adelante. También hemos visto como podemos validar los datos de los campos y lanzar errores ``forms.ValidationError()``.
 
-En la siguiente sección veremos como hacer login y logout :)
+En la siguiente sección veremos como hacer **login y logout** :)

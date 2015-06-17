@@ -1,6 +1,5 @@
 .. _reference-creacion_proyecto:
 
-.. raw
 
 Creación de un proyecto Django
 ==============================
@@ -29,19 +28,19 @@ Esto nos crea un directorio con la siguiente estructura:
 
     1 directory, 5 files
 
-``tutorial_django`` es la raíz del proyecto y ese directorio se puede renombrar tranquilamente, para diferenciarlo con el que hay en el interior con el mismo nombre, lo renombramos a ``src``.
+``tutorial_django`` es la raíz del proyecto y este directorio se puede renombrar tranquilamente, para diferenciarlo con el que hay en el interior con el mismo nombre, lo renombramos a ``src``.
 
 .. code-block:: bash
 
     mv tutorial_django src
 
-``manage.py`` es un archivo Python que se encarga de poner el proyecto en ``sys.path``, establecer la variable de entorno `DJANGO_SETTINGS_MODULE <https://docs.djangoproject.com/en/1.8/topics/settings/#envvar-DJANGO_SETTINGS_MODULE>`_ para que apunte al archivo ``settings.py`` y llama a `django.setup() <django.setup()>`_.
+``manage.py`` es un archivo Python que se encarga de poner el proyecto en ``sys.path``, establecer la variable de entorno `DJANGO_SETTINGS_MODULE <https://docs.djangoproject.com/en/1.8/topics/settings/#envvar-DJANGO_SETTINGS_MODULE>`_ para que apunte al archivo ``settings.py`` y llama a `django.setup() <https://docs.djangoproject.com/en/1.8/ref/applications/#django.setup>`_.
 
 .. note::
 
     En linux, en principio ``manage.py`` tiene permisos de ejecución, en caso de no tenerlos ``chmod +x manage.py``
 
-Todos los comandos (poco a poco veremos unos cuantos) que se pasan a ``manage.py`` son pasados a ``django-admin`` estableciendo los parámetros del párrafo anterior, por lo tanto es un wrapper de ``django-admin``.
+Todos los comandos (**argumentos**) (poco a poco veremos unos cuantos) que se pasan a ``manage.py`` son pasados a ``django-admin`` estableciendo los parámetros del párrafo anterior, por lo tanto es un wrapper de ``django-admin``.
 
 .. note::
 
@@ -51,13 +50,13 @@ Dentro de ``src`` hay otro directorio con el mismo nombre ``tutorial_django`` y 
 
 | ``__init__.py`` es para decirle que trate ``tutorial_django`` como un paquete Python.
 | ``settings.py`` aquí pondremos/cambiaremos las configuraciones del sitio.
-| ``urls.py`` archivo URLconf, aquí es donde manejaremos las rutas que apuntan a las vistas.
-| ``wsgi.py`` WSGI en pocas palabras es una interfaz entre un servidor web y la propia aplicación, no hablaremos mas sobre este tema en este tutorial.
+| ``urls.py`` archivo **URLconf**, aquí es donde manejaremos las rutas que apuntan a las vistas.
+| ``wsgi.py`` **WSGI** en pocas palabras es una interfaz entre un servidor web y la propia aplicación, no hablaremos mas sobre este tema en este tutorial.
 
 Primera migración
 *****************
 
-Una de las primeras cosas que se hace después de crear un proyecto Django, es elegir el motor de base de datos en la que almacenaremos todos nuestros datos, decir a Django que RDBMS vamos a usar, en ``tutorial_django/settings.py``, buscamos la zona donde esta la configuración de ``DATABASES``.
+Una de las primeras cosas que se hace después de crear un proyecto Django, es elegir el motor de base de datos en la que almacenaremos todos nuestros datos, decir a Django que **RDBMS** vamos a usar, en ``tutorial_django/settings.py``, buscamos la zona donde esta la configuración ``DATABASES``.
 
 Para este tutorial usaremos el mas simple, ``SQLite`` que es la que viene por defecto, pero si quieres usar otro distinto puedes ver de la `documentación <https://docs.djangoproject.com/en/1.8/ref/settings/#databases>`_
 
@@ -78,9 +77,9 @@ Ahora, tenemos que hacer la primera migración y la creación de un administrado
 
     ./manage.py migrate
 
-Esto nos crea las tablas de algunas aplicaciones que vienen por defecto en Django (si quieres ver las apps que se usan en Django, puedes mirar en el archivo ``settings.py`` en la tupla ``INSTALLED_APPS``).
+Esto nos crea las tablas de algunas aplicaciones que vienen por defecto en Django (si quieres ver las **apps** que se usan en Django, puedes mirar en el archivo ``settings.py`` en la tupla ``INSTALLED_APPS``).
 
-Si usas el gestor de la base de datos que hayas elegido, puedes ver que se han creado varias tablas en la base de datos, tambien has podido ver que tablas se han creado, con la salida de ``./manage.py migrate``
+Si usas el gestor de la base de datos que hayas elegido, puedes ver que se han creado varias tablas en la base de datos, también has podido ver que tablas se han creado, con la salida de ``./manage.py migrate``
 
 .. code-block:: bash
 
@@ -127,13 +126,13 @@ Vamos a ver si todo ha salido bien, o como se esperaba. Para ello se usa el coma
 
 .. warning::
 
-  Django tiene un servidor escrito en Python exclusivamente para el desarrollo, cada vez que se modifica un archivo, el servidor se reinicia y recompila los archivos, ahorrandonos mucho tiempo y molestias, pero eso solo eso, un servidor para desarrollo, que soporta una o unas pocas peticiones, **no lo uses para un servidor de produccion!** para eso tienes Nginx, Apache entre otros.
+  Django tiene un servidor escrito en Python exclusivamente para el desarrollo, cada vez que se modifica un archivo, el servidor se reinicia y recompila los archivos, ahorrándonos mucho tiempo y molestias, pero eso solo eso, un servidor para desarrollo, que soporta una o unas pocas peticiones, **no lo uses para un servidor de producción!** para eso tienes **Nginx**, **Apache** entre otros.
 
 Accedemos en el navegador a la url `http://127.0.0.1:8000 <http://127.0.0.1:8000>`_ y si todo ha salido bien, veras una pantalla como la siguiente:
 
 .. image:: _static/congratulations.png
 
-También podemos ver la administración que viene incorporada con Django y que ahorra muchas horas de trabajo, genera un sistema ``CRUD`` simplemente genial, para acceder a la administración vamos a la url `http://127.0.0.1:8000/admin/ <http://127.0.0.1:8000/admin/>`_
+También podemos ver la administración que viene incorporada con Django y que ahorra muchas horas de trabajo, genera un sistema **CRUD** simplemente genial, para acceder a la administración vamos a la url `http://127.0.0.1:8000/admin/ <http://127.0.0.1:8000/admin/>`_
 
 .. image:: _static/admin_login.png
 
