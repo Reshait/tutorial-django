@@ -1,0 +1,26 @@
+# File types #
+##############
+*.pyc
+*.swo
+*.swp
+*.swn
+
+# Directories #
+###############
+__pycache__/
+.idea/
+build/
+logs/
+
+# Specific files #
+##################
+*.komodoproject
+
+# OS generated files #
+######################
+.directory
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+*~
