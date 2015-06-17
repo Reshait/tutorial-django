@@ -28,7 +28,7 @@ Ahora si actualizamos veremos que muestra ambos modelos (también, algo que ya e
 
 .. image:: ../_static/blog_admin2.png
 
-Lo primero que vamos hacer es cambiar los nombres que muestra de los modelos, por defecto (usa reglas del ingles), añade **s** o **es** al final del nombre del modelo, **Article** lo cambia a **Articles** y **Country** lo cambiaría a **Countries** y no siempre es lo que desearíamos, a parte, si vemos en **User profiles** que pertenece al modelo **UserProfile**, se intuye que parte las palabras en las letras mayúsculas y lo convierte en minúsculas excepto el primer carácter.
+Lo primero que vamos hacer es cambiar los nombres que muestra de los modelos, por defecto (usa reglas del ingles), añade **s** o **es** al final del nombre del modelo, **Article** lo cambia a **Articles** y **Country** lo cambiaría a **Countries** y no siempre es lo que desearíamos, a parte, si vemos en **User profiles** que pertenece al modelo ``UserProfile``, se intuye que parte las palabras en las letras mayúsculas y lo convierte en minúsculas excepto el primer carácter.
 
 Para cambiar este comportamiento por defecto, vamos a crear unas clases dentro de las clases del modelo llamada ``Meta`` y dentro, añadiremos meta información.
 
@@ -86,7 +86,13 @@ Ahora si pinchamos en `Articulos <http://127.0.0.1:8000/admin/blog/article/>`_ v
 
 Siendo sinceros, no es mucha información, para ver quien lo creo y cuando, abría que pinchar para editarlo y ver la información (que las fechas ni las podríamos ver en un principio).
 
-Vamos a modificar el comportamiento, para que nos muestre los campos que consideremos útiles.
+.. note::
+
+    Las fechas en los modelos en los campos pasamos los argumentos ``auto_now=True`` y ``auto_now_add=True`` (se añadirán o modificaran automáticamente) por lo que en la administración no muestra los campos. Si queremos modificarlos a mano, en los campos del modelo, deberemos añadir el argumento ``editable=True`` de esta manera ``create_at = models.DateTimeField(auto_now_add=True, editable=True)``
+
+    De igual manera, los **slugs** podríamos hacer que no muestre el campo en la administración (recuerda que se generan automáticamente antes de guardar el objeto) de esta manera ``slug = models.SlugField(max_length=100, editable=False)``
+
+Vamos a modificar el comportamiento, para que nos muestre los campos que consideremos que nos de una información útil.
 
 .. code-block:: python
 
@@ -98,13 +104,13 @@ Vamos a modificar el comportamiento, para que nos muestre los campos que conside
 
     admin.site.register(Article, ArticleAdmin)
 
-Hemos creado una clase ``ArticleAdmin`` que es subclase de ``django.contrib.admin.ModelAdmin``, hemos añadido una propiedad ``list_display`` con una tupla (podría a ver sido una lista), con las propiedades del modelo ``Article`` que queremos mostrar.
+Hemos creado una clase ``ArticleAdmin`` que es subclase de ``django.contrib.admin.ModelAdmin``, hemos añadido una propiedad ``list_display`` con una tupla (podría ser una lista), con las propiedades del modelo ``Article`` que queremos mostrar.
 
-Después añadimos (registramos) ``ArticleAdmin`` en ``admin.site.register(Article, ArticleAdmin)`` donde el primer argumento es el modelo, y el segundo el la subclase de ``ModelAdmin`` y el resultado podemos ver en la siguiente captura.
+Después añadimos (registramos) ``ArticleAdmin`` en ``admin.site.register(Article, ArticleAdmin)`` donde el primer argumento es el modelo, y el segundo la subclase de ``ModelAdmin`` y el resultado podemos ver en la siguiente captura.
 
 .. image:: ../_static/blog_admin_articulo1.png
 
-Podemos crear nuestros propios métodos en el modelo para mostrar información. Por ejemplo, vamos a obtener un string con las etiquetas con las 'Tags', que tiene el articulo.
+Podemos crear nuestros propios métodos en el modelo para mostrar información. Por ejemplo, vamos a obtener un **string** con las etiquetas con las **Tags**, que tiene el articulo.
 
 .. code-block:: python
 
@@ -121,7 +127,7 @@ Podemos crear nuestros propios métodos en el modelo para mostrar información. 
     # Modificamos el list_display
     list_display = ('title', 'owner', 'create_at', 'update_at', 'get_string_tags')
 
-Simplemente añadiendo como string ``get_string_tags`` (no podemos añadir un método que acepte parámetros), obtenernos la devolución del método (debe devolver valores simples, strings, fechas, int, etc). Se puede ver el resultado en la siguiente captura.
+Simplemente añadiendo como **string** ``get_string_tags`` (no podemos añadir un método que acepte parámetros), obtenemos la devolución del método (debe devolver valores simples, **strings, fechas, int**, etc). Se puede ver el resultado en la siguiente captura.
 
 .. image:: ../_static/blog_admin_articulo3.png
 
@@ -149,4 +155,4 @@ Y el resultado:
 
 Esta sección la damos por terminada, aunque esto es solo la punta del iceberg, te recomiendo la `documentación <https://docs.djangoproject.com/en/1.8/ref/contrib/admin/>`_ para una lista completa de lo que se puede hacer en la administración.
 
-En las siguientes secciones, vamos a generar un sistema CRUD (aunque teniendo la administración, no es necesario, pero para demostrar lo fácil que es crear, editar y eliminar elementos, lo haremos)
+En las siguientes secciones, vamos a generar un sistema **CRUD** (aunque teniendo la administración, no es necesario, pero para demostrar lo fácil que es crear, editar y eliminar elementos, lo haremos)

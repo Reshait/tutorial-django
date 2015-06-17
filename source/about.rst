@@ -3,7 +3,7 @@
 Pagina About
 ============
 
-About (Sobre mi o Acerca de), la vamos a crear con la vista mas simple, ``View`` para mostrarla, tanto **about** como **contact**, crearemos las vistas en la app **home**.
+About (Sobre mi o Acerca de), la vamos a crear con la vista mas simple, ``View`` para mostrarla, tanto **about** como **contact**, crearemos las vistas en la **app home**.
 
 Vamos a empezar como siempre, si, la vista...
 
@@ -22,7 +22,7 @@ Vamos a empezar como siempre, si, la vista...
 
 La clase ``View`` es la clase de vista mas simple, la que menos propiedades y métodos tiene, 2 de los métodos que podemos usar es ``get()`` y ``post()`` que ejecutara uno u otro dependiendo del **method**. En este caso, ``get()`` simplemente renderiza una pagina **html** (una simple función lo podría a ver hecho, pero quería mostrar la clase ``View``).
 
-Ahora pondremos la **url** en **URLconf**
+Ahora ponemos la **url** en **URLconf**
 
 .. code-block:: python
 

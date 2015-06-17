@@ -5,7 +5,7 @@ Pagina Contacto
 
 Django proporciona una envoltura de **smtplib** para que el envió de correos electrónicos sea una tarea muy sencilla. Para empezar, es necesario añadir variables en el archivo de configuración ``tutorial_django/settings.py``
 
-Al igual que **about**, lo haremos en la app **home**. Añadimos al final:
+Al igual que **about**, lo haremos en la **app home**. Añadimos al final:
 
 .. code-block:: python
 
@@ -17,7 +17,7 @@ Al igual que **about**, lo haremos en la app **home**. Añadimos al final:
     EMAIL_HOST_USER = 'usuario@gmail.com'
     EMAIL_HOST_PASSWORD = 'contraseña'
 
-Esta es la configuracion tipica para usar **Gmail** como **SMTP**, modifica los datos de tu cuenta **Gmail**.
+Esta es la configuración típica para usar **Gmail** como **SMTP**, modifica los datos de tu cuenta **Gmail**.
 
 Vamos a empezar con los formularios. La idea es la siguiente, si un usuario esta logueado (tenemos su email de contacto), no mostrara el campo de email, en caso contrario, le pediremos su email por si tenemos que contactar con el.
 
@@ -56,9 +56,9 @@ Vamos a empezar con los formularios. La idea es la siguiente, si un usuario esta
         )
 
 
-Creamos 2 formularios, uno para el usuario logueado y otro para el usuario anonimo.
+Creamos 2 formularios, uno para el usuario logueado y otro para el usuario anónimo.
 
-La vista, en esta ocasion, vamos a usar otra **CBV** que es un ``FormView``
+La vista, en esta ocasión, vamos a usar otra **CBV** que es un ``FormView``
 
 .. code-block:: python
 
@@ -71,6 +71,7 @@ La vista, en esta ocasion, vamos a usar otra **CBV** que es un ``FormView``
     from .forms import ContactUsuarioAnonimoForm, ContactUsuarioLoginForm
 
     # Creamos una función para el envió de email
+    # (es muy simple, solo para demostrar como enviar un email)
     def send_email_contact(email_usuario, subject, body):
         body = '{} ha enviado un email de contacto\n\n{}\n\n{}'.format(email_usuario, subject, body)
         send_mail(
@@ -116,8 +117,8 @@ Ahora, tenemos que generar el método ``form_valid`` y decirle que envié el ema
 
 Volvemos hacer la comprobación de si es un usuario autenticado, si lo esta, recuperamos el email con ``self.request.user.email`` y si no lo es, entonces el usuario ha introducido el email en el formulario y lo recuperamos con ``form.cleaned_data.get('email')``.
 
-Después pasamos los datos a la función ``send_email_contact``, que prepara el email y lo envía de una manera muy sencilla (recuerda configurar las variables de configuración en ``tutorial_django/settings.py``)
+Después pasamos los datos a la función ``send_email_contact``, que prepara el email (de una manera muy simple, solo para mostrar como funciona) y lo envía de una manera muy sencilla (recuerda configurar las variables de configuración en ``tutorial_django/settings.py``)
 
-Pues yo creo que ya tenemos un blog (basico) creado, y por ahora ya lo dejamos, espero que lo hayas disfrutado y te haya servido de algo el tutorial.
+Pues yo creo que ya tenemos un blog (básico) creado, con la funcionalidad básica de cualquier formulario, y por ahora ya lo dejamos, espero que lo hayas disfrutado y te haya servido de algo el tutorial.
 
 Ya solo unas palabras de despedida en la siguiente sección.

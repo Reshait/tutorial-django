@@ -5,7 +5,7 @@ Detalles articulo DetailView
 
 Ahora, vamos a añadir la pagina de detalles del articulo, donde mostrar el articulo en una pagina separada.
 
-Los pasos, los de siempre la vista, la plantilla y crear la **url** en URLconf.
+Los pasos, los de siempre, la vista, la plantilla y crear la **url** en **URLconf**.
 
 La vista, al igual que hicimos con ``ArticleListView`` que es una subclase de ``ListView``, ahora vamos hacer prácticamente lo mismo, ``ArticleDetailView`` que sera una subclase de ``DetailView``.
 
@@ -48,9 +48,9 @@ El template
         </div>
     {% endblock blog_content %}
 
-Se puede ver que es prácticamente igual que ``article_list.html`` omitiendo la paginacion, dentro de un rato, volveremos con este tema (para no repetirnos) y lo modificaremos.
+Se puede ver que es prácticamente igual que ``article_list.html`` omitiendo la paginación, dentro de un rato, volveremos con este tema (para no repetirnos) y lo modificaremos.
 
-en URLconf añadimos la siguiente **url**
+en **URLconf** añadimos la siguiente **url**
 
 .. code-block:: python
 

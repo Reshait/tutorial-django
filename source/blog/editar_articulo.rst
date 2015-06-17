@@ -20,6 +20,11 @@ Tampoco necesitamos saber que usuario lo ha creado (no lo cambiaremos), así que
         form_class = ArticleCreateForm
 
         def dispatch(self, request, *args, **kwargs):
+            # Al igual que con ArticleCreateView, dejo al lector
+            # que cambie el comportamiento de este método para saber
+            # si esta logueado y tiene permisos.
+            # Ver el comentario de ArticleCreateView en el método
+            # dispatch
             if not request.user.has_perms('blog.change_article'):
                 return redirect(settings.LOGIN_URL)
             return super().dispatch(request, *args, **kwargs)
@@ -33,7 +38,7 @@ Tampoco necesitamos saber que usuario lo ha creado (no lo cambiaremos), así que
             # devolvemos el contexto
             return context
 
-``dispatch`` cambia el tipo de permisos, ahora comprueba que el usuario pueda editar y en el contexto, cambia el **title** y **nombre_btn**.
+``dispatch`` cambia el tipo de permisos, ahora comprueba que el usuario pueda editar y en el contexto ``get_context_data``, cambia el **title** y **nombre_btn**.
 
 La plantilla es la misma que la de crear articulo, así que pasamos a la **URLconf**
 

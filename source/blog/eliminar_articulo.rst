@@ -25,9 +25,9 @@ Eliminar un articulo, también es muy fácil:
                 return redirect(settings.LOGIN_URL)
             return super().dispatch(request, *args, **kwargs)
 
-Aquí se puede ver que hemos usado ``success_url``, por que si lo dejamos sin poner como anteriormente, cuando lea del model ``get_absolute_url``, dará un error, por que el articulo no existe.
+Aquí se puede ver que hemos usado ``success_url``, por que si lo dejamos sin poner como anteriormente, cuando lea del modelo ``get_absolute_url``, dará un error, por que el articulo no existe (lo acabamos de eliminar).
 
-``reverse_lazy`` es igual que ``reverse`` que ya hemos usado varias veces, la diferencia, es que ``reverse_lazy`` es útil usarla cuando URLconf aun no se ha cargado.
+``reverse_lazy`` es igual que ``reverse`` que ya hemos usado varias veces, la diferencia, es que ``reverse_lazy`` es útil usarla cuando **URLconf** aun no se ha cargado.
 
 **URLconf:**
 
@@ -69,5 +69,7 @@ Y añadimos un enlace en detalles del articulo.
     {% if perms.article.can_delete %}
         <a href="{% url 'blog.eliminar' article.slug %}" class="btn btn-danger">Eliminar</a>
     {% endif %}
+
+Ta hemos terminado el blog, un blog básico, pero funcional, espero que te haya servido para aprender los fundamentos de temas como las **CBV** y los **ModelForm**.
 
 Ahora, nos queda la pagina **about** y **contact** que veremos en las próximas secciones.

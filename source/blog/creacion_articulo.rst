@@ -68,7 +68,7 @@ Y por ultimo, vamos a crear un botón en la barra de navegación superior, si ti
         <li><a href="#contact">Crear articulo</a></li>
     {% endif %}
 
-``perms`` tambien esta disponible en las plantillas, y la forma de saber si un usuario tiene permisos es: objeto ``perms.nombre_modelo.permiso``, donde ``nombre_modelo`` es el nombre del modelo en minusculas y ``permiso`` es uno de los siguientes:
+``perms`` tambien esta disponible en las plantillas, y la forma de saber si un usuario tiene permisos es: ``perms.nombre_modelo.permiso``, donde ``nombre_modelo`` es el nombre del modelo en minúsculas y ``permiso`` es uno de los siguientes:
 
 * ``can_add``: Puede añadir
 * ``can_change``: Puede cambiar (editar)
@@ -82,10 +82,9 @@ Y si estamos deslogueados, no mostrara el link
 
 .. image:: ../_static/blog_template_15.png
 
-Si pinchamos encima de **Crear articulo** veremos que nos mostrara un error! `http://127.0.0.1:8000/blog/crear/ <http://127.0.0.1:8000/blog/crear/>`_ el error es desde Django 1.8 que obliga añadir la propiedad ``fields`` (en este caso dentro de la vista, pero podría ser también en un ``ModelForm``), con los campos que vamos a mostrar.
+Si pinchamos encima de **Crear articulo** veremos que nos mostrara un error! `http://127.0.0.1:8000/blog/crear/ <http://127.0.0.1:8000/blog/crear/>`_ el error es por que Django 1.8 obliga añadir la propiedad ``fields`` (en este caso dentro de la vista, pero podría ser también en un ``ModelForm``), con los campos que vamos a mostrar.
 
 Así que, vamos a añadir en la vista la siguiente linea:
-
 
 .. code-block:: python
 
@@ -128,9 +127,9 @@ y podemos ver los resultados
 
 De esta manera, podemos mas tarde reutilizar la plantilla cuando hagamos la de edición.
 
-¿Y el **slug** y el propietario (**owner**)? bueno, el **slug**, si recuerdas, se genera automáticamente cuando se guarda el objeto y el **owner**, lo recuperaremos mas tarde el usuario que esta logueado (que actualmente tenemos un problema, por que cualquiera puede crear un articulo, luego lo arreglamos)
+¿Y el **slug** y el propietario (**owner**)? bueno, el **slug**, si recuerdas, se genera automáticamente cuando se crea/guarda el objeto y el **owner**, lo recuperaremos mas tarde del usuario que esta logueado (que actualmente tenemos un problema, por que cualquiera puede crear un articulo, luego lo arreglamos)
 
-Otra cosa que podemos apreciar, es el diseño de los elementos del formulario, no tienen el diseño de bootstrap!, a parte los campos tienen un nombre **no muy útil** para los usuarios.
+Otra cosa que podemos apreciar, es el diseño de los elementos del formulario, no tienen el diseño de **Bootstrap!** como antes :(, a parte los campos tienen un nombre **no muy útil** para los usuarios.
 
 Empezaremos por lo nombres de los campos (**labels**), en principio, añade el nombre del campo del modelo, en este caso de ``blog.models.Article``, pero es posible cambiar el nombre en el mismo modelo.
 
@@ -148,7 +147,7 @@ Empezaremos por lo nombres de los campos (**labels**), en principio, añade el n
 
 El del ``body``, lo dejamos para el formulario, para demostrar otra posibilidad de hacerlo.
 
-En **accounts** creamos los formularios con subclases de ``django.forms.Form``, pero hay otra manera cuando se crear formularios que son parte de un modelo (como es el caso), vamos a crear un formulario ``ArticleCreateForm`` que es subclase de ``django.forms.ModelForm``.
+En **accounts** creamos los formularios con subclases de ``django.forms.Form``, pero hay otra manera cuando se crean formularios que son parte de un modelo (como es el caso), vamos a crear un formulario ``ArticleCreateForm`` que es subclase de ``django.forms.ModelForm``.
 
 .. code-block:: bash
 
@@ -177,9 +176,9 @@ En **accounts** creamos los formularios con subclases de ``django.forms.Form``, 
 
 Como se puede apreciar, las opciones de formulario están en la clase ``Meta``, donde el ``model`` es el modelo, en este caso ``Article``, ``fields`` una tupla o lista con los campos a mostrar, ``labels``, al igual que en el modelo usábamos ``verbose_name``, en los formularios es ``labels``, un diccionario con la clave (el nombre del campo/elemento) y el valor (el texto a mostrar). Por ultimo vemos los ``widgets``, también un diccionario donde la clave es el nombre del campo y el valor es el tipo de campo que queremos con un argumento ``attrs`` con los atributos que insertara en el elemento del formulario.
 
-Si actualizamos la pagina, nos dara un error diciendo que no podemos tener ``fields`` en 2 sitios, asi que quitamos ``fields = ('title', 'body')`` en la vista ``ArticleCreateView``.
+Si actualizamos la pagina, nos dará un error diciendo que no podemos tener ``fields`` en 2 sitios, así que quitamos ``fields = ('title', 'body')`` en la vista ``ArticleCreateView``.
 
-Vamos añadir un método en la vista, el método se ejecuta después de instanciar la clase, para determinar el tipo **method** de la solicitud.
+Vamos añadir un método en la vista, el método se ejecuta después de **instanciar** la clase, para determinar el tipo **method** de la solicitud.
 
 .. code-block:: python
 
@@ -194,17 +193,29 @@ Vamos añadir un método en la vista, el método se ejecuta después de instanci
     # ...
 
     def dispatch(self, request, *args, **kwargs):
+        # Nota: Dejo para el lector como ejercicio que cambie este
+        # comportamiento, actualmente, solo comprueba si es usuario
+        # tiene permisos para añadir un articulo, si no lo tiene, lo
+        # redirecciona a login, pero, ¿y si esta logueado y simplemente
+        # no tiene permisos?
+        # El compportamiento logico seria:
+        #   ¿Estas logueado?
+        #       ¿Tiene permisos?
+        #           Continuar con la ejecución
+        #       ¿No tienes permisos?
+        #           Redireccionar a una pagina informando que no tiene permisos
+        #           para añadir un articulo.
+        #   Si no estas logueado:
+        #       Redireccionar a pagina de login
         if not request.user.has_perms('blog.add_article'):
             return redirect(settings.LOGIN_URL)
         return super().dispatch(request, *args, **kwargs)
 
 ``has_perms('blog.add_article')`` a diferencia de las plantillas, se le pasa un argumento como **string** con el **nombre_app.tipopermiso_nombremodelo** donde **tipopermiso** es ``add_``, ``change_`` y ``delete_`` (por defecto).
 
-No preguntamos si ``request.user.is_authenticated()`` por la sencilla razón, que un usuario no logueado es un usuario **anonimo** pero es un usuario y no tiene permisos, por lo que si tiene permisos es por que esta logueado y si no esta logeuado, seguro que no tiene permisos.
-
 Si vamos a la web, estando logueados y le damos al botón de **Crear**, vemos el formulario se valida, y si no pasa la validación, recarga otra vez el formulario indicando los errores.
 
-La validación va en este orden, ``ModelForm`` sobre escribe a ``Model`` (otra cosa es que luego nos mande un error el modelo por no cumplir los **requisitos**).
+La validación va en este orden, ``ModelForm`` sobrescribe a ``Model`` (otra cosa es que luego nos mande un error el modelo por no cumplir los **requisitos**).
 
 .. image:: ../_static/blog_template_18.png
 
@@ -214,7 +225,7 @@ Vamos a crear un articulo, ponemos un **Titulo** y ponemos algo en **Text** y le
 
 **OPS!**, se nos ha olvidado asignar a **owner** al articulo!
 
-``CreateView`` tiene dos metodos ``form_valid(self, form)`` y form_invalid(self, form)``, que podemos tomar decisiones si el formulario es valido o no.
+``CreateView`` tiene dos métodos ``form_valid(self, form)`` y form_invalid(self, form)``, que podemos tomar decisiones si el formulario se ha validado con éxito o no.
 
 En este caso, queremos hacer algo cuando sea valido, asignar el usuario actual a **owner**.
 
@@ -232,6 +243,6 @@ En este caso, queremos hacer algo cuando sea valido, asignar el usuario actual a
 
 ``form.instance`` es un objeto del modelo (una propiedad de ``FormModel``), pero aun no se ha guardado. (Puede parece un lío), después de ejecutar ``CreateView.form_valid``, se ejecutara ``FormModel.save()`` que a su vez, ejecutara ``Model.save()``
 
-Por ultimo, cuando todo lo anterior termina bien, ``ArticleCreateView`` tiene una propiedad ``success_url`` y un método ``get_success_url()``, si no tiene datos, ni el método ni la propiedad (es la url de redirección en caso de éxito), intentara obtener ``Model.get_absolute_url()``, si no se tuviera declarado al menos 1 de las 3 opciones, lanzara un error, por que no sabe donde queremos ir después de crear el articulo. En este caso, tenemos declarada en el modelo ``get_absolute_url()``, sera donde redireccionara cuando todo haya salido bien, que sera a detalles del articulo.
+Por ultimo, cuando todo lo anterior termina bien, ``ArticleCreateView`` tiene una propiedad ``success_url`` y un método ``get_success_url()``, si no tiene datos, ni el método ni la propiedad (es la **url** de redirección en caso de éxito), intentara obtener ``Model.get_absolute_url()``, si no se tuviera declarado al menos 1 de las 3 opciones, lanzara un error, por que no sabe donde queremos ir después de crear el articulo. En este caso, tenemos declarada en el modelo ``get_absolute_url()``, sera donde redireccionara cuando todo haya salido bien, que sera a detalles del articulo.
 
 En la siguiente sección, vamos a poner la opción de editar el articulo

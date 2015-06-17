@@ -5,7 +5,7 @@ Creación de un filtro
 
 Vamos a crear un filtro personalizado, vamos a crear el típico **leer mas...**, que sera un link para leer el articulo entero. En la lista de artículos, los artículos se cortaran donde pongamos una marca ``<!-- read_more -->``. El filtro comprobara si tiene un ``<!-- read_more -->``, si lo tiene, cambiara ese texto por un link hacia **detalles del articulo**.
 
-Primero, vamos añadir un metodo al modelo ``Article``, ``get_absolute_url``
+Primero, vamos añadir un método al modelo ``Article``, ``get_absolute_url``
 
 .. code-block:: python
 
@@ -21,11 +21,11 @@ Primero, vamos añadir un metodo al modelo ``Article``, ``get_absolute_url``
         def get_absolute_url(self):
             return reverse('blog.article_detail', kwargs={'slug': self.slug})
 
-Primero importamos del modulo ``urlresolvers`` la función ``reverse``, que generara una **URI** en base al archivo **URLconf**, el primer parámetro es el ``name`` de ``url()`` y el segundo parámetro es un diccionario ``kwargs`` con los argumentos de ``regex`` ``(?P<slug>[-\w]+)``, en este caso requiere un slug, por lo tanto se le pasa el nombre (el parámetro de ``regex``) y el valor, en este caso ``self.slug``.
+Primero importamos del modulo ``urlresolvers`` la función ``reverse``, que generara una **URI** en base al archivo **URLconf**, el primer parámetro es el ``name`` de ``url()`` y el segundo parámetro es un diccionario ``kwargs`` con los argumentos de ``regex`` ``(?P<slug>[-\w]+)``, en este caso requiere un **slug**, por lo tanto se le pasa el nombre (el parámetro de ``regex``) y el valor, en este caso ``self.slug``.
 
 La función, como veremos, no es una invención o convención nuestra, pertenece a ``django.db.models.Model`` y es utilizada a menudo como iremos viendo.
 
-Los filtros, se crean en el mismo archivo que las **inclusion_tag**, es decir, en el archivo ``nombre_app/templatetags/app_tags.py``, en este caso en ``blog/templatetags/blog_tags.py``.ç
+Los filtros, se crean en el mismo archivo que las **inclusion_tag**, es decir, en el archivo ``nombre_app/templatetags/app_tags.py``, en este caso en ``blog/templatetags/blog_tags.py``.
 
 .. code-block:: python
 
@@ -60,11 +60,11 @@ Y modificamos la plantilla ``_article.html``
 
 La función (o filtro), lo único que hace es buscar un substring ``<!-- read_more -->``, si lo encuentra sustituye ``<!-- read_more -->`` por un link. El link es generado gracias al método ``get_absolute_url`` del objeto ``Article``.
 
-La plantilla, usamos la misma tecnica anterior, si existe un contexto ``articles``, significa que estamos en la plantilla ``article_list.html`` y llamamos al filtro de la siguiente manera ``{{ article|read_more|safe }}``.
+La plantilla, usamos la misma técnica anterior, si existe un contexto ``articles``, significa que estamos en la plantilla ``article_list.html`` y llamamos al filtro de la siguiente manera ``{{ article|read_more|safe }}``.
 
-``read_more``, como hemos comentado, requiere un parametro, un objeto ``Article``, los filtros se aplican a la parte izquierda del filtro ``se_aplica|filtro``. En este caso el **se_aplica** es pasado como primer argumento (en este caso, el objeto ``Article``).
+``read_more``, como hemos comentado, requiere un parámetro, un objeto ``Article``, los filtros se aplican a la parte izquierda del filtro ``se_aplica|filtro``. En este caso el **se_aplica** es pasado como primer argumento (en este caso, un objeto ``Article``).
 
-Ademas, podemos observar que los filtros pueden a su vez tener otros filtros, a la devolucion de ``article|read_more`` que ahora es un string, le aplicamos el filtro ``safe`` anterior mente comentado.
+Ademas, podemos observar que los filtros pueden a su vez tener otros filtros, a la devolución de ``article|read_more`` que ahora es un **string**, le aplicamos el filtro ``safe`` anteriormente comentado.
 
 Si estamos llamando a la plantilla desde ``article_detail.html``, la variable de contexto ``articles`` no existe, por lo que se ejecutara ``{{ article.body|safe }}``.
 
