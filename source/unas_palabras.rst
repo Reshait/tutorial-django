@@ -9,7 +9,7 @@ Los requisitos mínimos para poder seguir sin problemas el tutorial seria tener 
 
 He usado para el tutorial **Python 3**, **Django 1.8** y **Fedora 22**.
 
-Puedes descargar el código del tutorial en ``Github <https://github.com/snicoper/tutorial-django-code>`_
+Puedes descargar el código del tutorial en `Github <https://github.com/snicoper/tutorial-django-code>`_
 
 Para el tutorial, vamos a crear un pequeño Blog con las siguientes características.
 
