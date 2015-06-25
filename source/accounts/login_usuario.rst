@@ -22,25 +22,25 @@ En primer lugar creamos la vista
 
 
     def login_view(request):
-    # Si el usuario esta ya logueado, lo redireccionamos a index_view
-    if request.user.is_authenticated():
-        return redirect(reverse('accounts.index'))
+        # Si el usuario esta ya logueado, lo redireccionamos a index_view
+        if request.user.is_authenticated():
+            return redirect(reverse('accounts.index'))
 
-    mensaje = ''
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect(reverse('accounts.index'))
-            else:
-                # Redireccionar informando que la cuenta esta inactiva
-                # Lo dejo como ejercicio al lector :)
-                pass
-        mensaje = 'Nombre de usuario o contraseña no valido'
-    return render(request, 'accounts/login.html', {'mensaje': mensaje})
+        mensaje = ''
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(reverse('accounts.index'))
+                else:
+                    # Redireccionar informando que la cuenta esta inactiva
+                    # Lo dejo como ejercicio al lector :)
+                    pass
+            mensaje = 'Nombre de usuario o contraseña no valido'
+        return render(request, 'accounts/login.html', {'mensaje': mensaje})
 
 La vista, lo primero que comprueba es si esta autenticado, si lo esta, mostrar el formulario es **tontería** y lo redirecciona a la pagina principal ``index_view``, después comprueba si la respuesta viene por el método **POST**, si no lo es, renderiza la plantilla ``accounts/login.html``, que seria la primea vez que se accede a la pagina.
 
