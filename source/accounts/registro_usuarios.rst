@@ -68,7 +68,7 @@ Cuando hagamos una **migración** (ahora, dentro de un rato), veremos que los no
 
 Cada propiedad en el modelo ``UserProfile``, es una clase en el modulo ``models`` y aquí tienes una `lista <https://docs.djangoproject.com/en/1.8/ref/models/fields/#field-types>`_ con todos los campos y opciones en los argumentos de cada campo.
 
-Otra cosa a comentar, es la linea ``from django.conf import settings``, también podíamos a ver puesto ``from django.contrib.auth import User``, pero tal y como lo hemos puesto, nos aseguramos que siempre leemos el modelo ``User`` que estamos usando, ya que todo esto lo podemos personalizar y crear nuestros propios modelos ``User``, por defecto `settings.AUTH_USER_MODEL <https://docs.djangoproject.com/en/1.8/ref/settings/#auth>`_ es `auth.User`.
+Otra cosa a comentar, es la linea ``from django.conf import settings``, también podíamos haber puesto ``from django.contrib.auth import User``, pero tal y como lo hemos puesto, nos aseguramos que siempre leemos el modelo ``User`` que estamos usando, ya que todo esto lo podemos personalizar y crear nuestros propios modelos ``User``, por defecto `settings.AUTH_USER_MODEL <https://docs.djangoproject.com/en/1.8/ref/settings/#auth>`_ es `auth.User`.
 
 Antes de continuar, tenemos que instalar un paquete Python `Pillow <https://github.com/python-pillow/Pillow>`_ para manejar imágenes.
 
@@ -155,7 +155,7 @@ Si nos fijamos en la administración, podemos ver que ahora tenemos una entrada
 
 .. image:: ../_static/admin_user_profile_object.png
 
-Pero, el nombre que muestra ``UserProfile object`` no es muy intuitivo, ahora solo hay uno, pero si hubiesen 100, a ver como averiguamos que elemento pertenece a **X** usuario...
+Pero, el nombre que muestra ``UserProfile object`` no es muy intuitivo, ahora solo hay uno, pero si hubiesen 100, haber como averiguamos que elemento pertenece a **X** usuario...
 
 Vamos a solucionar esto, vamos a editar el modelo ``accounts/models.py`` y añadimos el siguiente método
 

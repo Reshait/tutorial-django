@@ -212,7 +212,7 @@ Como se puede ver, nos devuelve ``[<Tag: Tag object>]``, una lista con un elemen
         def __str__(self):
             return self.title
 
-Al a ver realizado un cambio en el archivo ``models.py``, se ha de salir del interprete
+Al haber realizado un cambio en el archivo ``models.py``, se ha de salir del interprete
 
 .. code-block:: python
 
@@ -386,7 +386,7 @@ Ahora, vamos a crear algunas entradas.
     >>> article.slug
     'primer-articulo'
 
-Ahora, vamos a ver, cuantos artículos ha publicado el usuario
+Ahora, vamos a ver cuantos artículos ha publicado el usuario
 
 .. code-block:: python
 

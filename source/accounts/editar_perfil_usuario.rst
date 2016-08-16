@@ -225,7 +225,7 @@ La vista
 
 Observa como usamos ``make_password()`` para generar un **password** con **hash** (no se traducir esto, lo siento :)), es muy importante, ya que si no, guardara la contraseña en texto plano y es un gran error por motivos de seguridad!.
 
-(Lo pongo aquí, aunque seria parte del ``EditarContrasenaForm``), también hay una función ``check_password() <https://docs.djangoproject.com/en/1.4/topics/auth/#django.contrib.auth.hashers.check_password>`_, que podríamos a ver comprobado en un método ``clean_actual_password()`` y comprobar si ``actual_password`` es igual a **password** informar al usuario que esta usando la misma contraseña que la actual (lo dejo como ejercicio para el lector).
+(Lo pongo aquí, aunque seria parte del ``EditarContrasenaForm``), también hay una función ``check_password() <https://docs.djangoproject.com/en/1.4/topics/auth/#django.contrib.auth.hashers.check_password>`_, que podríamos haber comprobado en un método ``clean_actual_password()`` y comprobar si ``actual_password`` es igual a **password** informar al usuario que esta usando la misma contraseña que la actual (lo dejo como ejercicio para el lector).
 
 La plantilla
 

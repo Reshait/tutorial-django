@@ -20,7 +20,7 @@ Vamos a empezar como siempre, si, la vista...
         def get(self, request, *args, **kwargs):
             return render(request, 'home/about.html')
 
-La clase ``View`` es la clase de vista mas simple, la que menos propiedades y métodos tiene, 2 de los métodos que podemos usar es ``get()`` y ``post()`` que ejecutara uno u otro dependiendo del **method**. En este caso, ``get()`` simplemente renderiza una pagina **html** (una simple función lo podría a ver hecho, pero quería mostrar la clase ``View``).
+La clase ``View`` es la clase de vista mas simple, la que menos propiedades y métodos tiene, 2 de los métodos que podemos usar es ``get()`` y ``post()`` que ejecutara uno u otro dependiendo del **method**. En este caso, ``get()`` simplemente renderiza una pagina **html** (una simple función lo podría haber hecho, pero quería mostrar la clase ``View``).
 
 Ahora ponemos la **url** en **URLconf**
 

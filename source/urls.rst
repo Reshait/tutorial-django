@@ -26,7 +26,7 @@ Echemos un ojo al archivo que crea por defecto Django al crear proyecto.
 
 En el argumento de ``regex``, es una expresión regular pura en Python, por lo que no debemos aprender otros tipo de patrones!.
 
-Para entender como funciona esto (a ver si yo me se explicar, que es lo difícil de verdad :P), vamos a crear nuestro archivo ``home/urls.py`` y le insertamos el siguiente código.
+Para entender como funciona esto (haber si yo me se explicar, que es lo difícil de verdad :P), vamos a crear nuestro archivo ``home/urls.py`` y le insertamos el siguiente código.
 
 .. code-block:: python
 
